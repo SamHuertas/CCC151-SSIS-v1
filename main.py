@@ -7,20 +7,22 @@
 
 from pathlib import Path
 from PyQt6 import QtCore, QtGui, QtWidgets
-from PyQt6.QtGui import QIcon
-from PyQt6.QtWidgets import QApplication, QMainWindow
+from PyQt6.QtGui import QIcon, QColor
+from PyQt6.QtWidgets import QApplication, QMainWindow, QGraphicsDropShadowEffect
 import sys
+import csv
 
 
 class Ui_MainPage(object):
     def setupUi(self, MainPage):
         MainPage.setObjectName("MainPage")
-        MainPage.resize(1491, 751)
+        MainPage.setFixedSize(1491, 751)
         font = QtGui.QFont()
         font.setPointSize(8)
         MainPage.setFont(font)
         MainPage.setStyleSheet(Path('MainStyle.qss').read_text())
-        
+
+        ##-------------------------------------START OF ADD STUDENT PANEL-------------------------------------
         self.AddStudent = QtWidgets.QFrame(parent=MainPage)
         self.AddStudent.setGeometry(QtCore.QRect(1050, 80, 411, 271))
         font = QtGui.QFont()
@@ -29,6 +31,7 @@ class Ui_MainPage(object):
         self.AddStudent.setFrameShape(QtWidgets.QFrame.Shape.StyledPanel)
         self.AddStudent.setFrameShadow(QtWidgets.QFrame.Shadow.Raised)
         self.AddStudent.setObjectName("AddStudent")
+        self.AddStudent.setGraphicsEffect(QGraphicsDropShadowEffect(blurRadius=50, color=QColor("#afafaf")))       
         self.AddStudentText = QtWidgets.QLabel(parent=self.AddStudent)
         self.AddStudentText.setGeometry(QtCore.QRect(10, 10, 151, 16))
         font = QtGui.QFont()
@@ -72,8 +75,6 @@ class Ui_MainPage(object):
         font.setFamily("Roboto")
         font.setPointSize(10)
         self.IDTB.setFont(font)
-        self.IDTB.setStyleSheet("")
-        self.IDTB.setPlaceholderText("")
         self.IDTB.setObjectName("IDTB")
         self.GenderDD = QtWidgets.QComboBox(parent=self.AddStudent)
         self.GenderDD.setGeometry(QtCore.QRect(150, 130, 81, 21))
@@ -81,6 +82,7 @@ class Ui_MainPage(object):
         font.setFamily("Roboto")
         self.GenderDD.setFont(font)
         self.GenderDD.setObjectName("GenderDD")
+        self.GenderDD.addItems(["","Male", "Female"])
         self.GenderText = QtWidgets.QLabel(parent=self.AddStudent)
         self.GenderText.setGeometry(QtCore.QRect(30, 130, 81, 21))
         font = QtGui.QFont()
@@ -94,6 +96,7 @@ class Ui_MainPage(object):
         font.setFamily("Roboto")
         self.YLevelDD.setFont(font)
         self.YLevelDD.setObjectName("YLevelDD")
+        self.YLevelDD.addItems(["","1", "2", "3", "4"])
         self.FNameTB = QtWidgets.QLineEdit(parent=self.AddStudent)
         self.FNameTB.setGeometry(QtCore.QRect(150, 70, 231, 21))
         font = QtGui.QFont()
@@ -123,6 +126,7 @@ class Ui_MainPage(object):
         font.setFamily("Roboto")
         self.PCodeDD.setFont(font)
         self.PCodeDD.setObjectName("PCodeDD")
+        self.PCodeDD.addItems(["","Sample1", "Sample2"])
         self.AddStudentButton = QtWidgets.QPushButton(parent=self.AddStudent)
         self.AddStudentButton.setGeometry(QtCore.QRect(280, 230, 121, 31))
         font = QtGui.QFont()
@@ -130,7 +134,11 @@ class Ui_MainPage(object):
         font.setPointSize(14)
         self.AddStudentButton.setFont(font)
         self.AddStudentButton.setCursor(QtGui.QCursor(QtCore.Qt.CursorShape.PointingHandCursor))
+        self.AddStudentButton.setDisabled(True)
         self.AddStudentButton.setObjectName("AddStudentButton")
+        ##-------------------------------------END OF ADD STUDENT PANEL-------------------------------------
+
+         ##-------------------------------------START OF ADD PROGRAM PANEL-------------------------------------
         self.AddProgram = QtWidgets.QFrame(parent=MainPage)
         self.AddProgram.setGeometry(QtCore.QRect(1050, 540, 411, 181))
         font = QtGui.QFont()
@@ -139,6 +147,7 @@ class Ui_MainPage(object):
         self.AddProgram.setFrameShape(QtWidgets.QFrame.Shape.StyledPanel)
         self.AddProgram.setFrameShadow(QtWidgets.QFrame.Shadow.Raised)
         self.AddProgram.setObjectName("AddProgram")
+        self.AddProgram.setGraphicsEffect(QGraphicsDropShadowEffect(blurRadius=50, color=QColor("#afafaf")))  
         self.AddProgramText = QtWidgets.QLabel(parent=self.AddProgram)
         self.AddProgramText.setGeometry(QtCore.QRect(10, 10, 151, 21))
         font = QtGui.QFont()
@@ -198,6 +207,9 @@ class Ui_MainPage(object):
         font.setFamily("Roboto")
         self.PCollCodeDD.setFont(font)
         self.PCollCodeDD.setObjectName("PCollCodeDD")
+        ##-------------------------------------END OF ADD PROGRAM PANEL-------------------------------------
+
+        ##-------------------------------------START OF ADD COLLEGE PANEL-------------------------------------
         self.AddCollege = QtWidgets.QFrame(parent=MainPage)
         self.AddCollege.setGeometry(QtCore.QRect(1050, 370, 411, 151))
         font = QtGui.QFont()
@@ -206,6 +218,7 @@ class Ui_MainPage(object):
         self.AddCollege.setFrameShape(QtWidgets.QFrame.Shape.StyledPanel)
         self.AddCollege.setFrameShadow(QtWidgets.QFrame.Shadow.Raised)
         self.AddCollege.setObjectName("AddCollege")
+        self.AddCollege.setGraphicsEffect(QGraphicsDropShadowEffect(blurRadius=50, color=QColor("#afafaf")))  
         self.AddCollegeText = QtWidgets.QLabel(parent=self.AddCollege)
         self.AddCollegeText.setGeometry(QtCore.QRect(10, 10, 151, 21))
         font = QtGui.QFont()
@@ -253,6 +266,9 @@ class Ui_MainPage(object):
         self.AddCollegeButton.setFont(font)
         self.AddCollegeButton.setCursor(QtGui.QCursor(QtCore.Qt.CursorShape.PointingHandCursor))
         self.AddCollegeButton.setObjectName("AddCollegeButton")
+        ##-------------------------------------END OF ADD COLLEGE PANEL-------------------------------------
+
+        ##-------------------------------------START OF DATABASE PANEL-------------------------------------
         self.Database = QtWidgets.QFrame(parent=MainPage)
         self.Database.setGeometry(QtCore.QRect(30, 80, 1001, 641))
         font = QtGui.QFont()
@@ -261,6 +277,7 @@ class Ui_MainPage(object):
         self.Database.setFrameShape(QtWidgets.QFrame.Shape.StyledPanel)
         self.Database.setFrameShadow(QtWidgets.QFrame.Shadow.Raised)
         self.Database.setObjectName("Database")
+        self.Database.setGraphicsEffect(QGraphicsDropShadowEffect(blurRadius=50, color=QColor("#afafaf")))  
         self.SearchText = QtWidgets.QLabel(parent=self.Database)
         self.SearchText.setGeometry(QtCore.QRect(20, 20, 81, 21))
         font = QtGui.QFont()
@@ -289,16 +306,7 @@ class Ui_MainPage(object):
         font.setPointSize(12)
         self.SearchButton.setFont(font)
         self.SearchButton.setCursor(QtGui.QCursor(QtCore.Qt.CursorShape.PointingHandCursor))
-        self.SearchButton.setStyleSheet("#SearchButton\n"
-"{    \n"
-"    background-color: #1e88e5;\n"
-"    border-radius: 2px;\n"
-"    box-shadow: 10px 9px 7px 1px rgba(0,0,0,0.83);\n"
-"    color: white;\n"
-"}\n"
-"#SearchButton:pressed {\n"
-"    border: 3px solid rgb(152, 205, 229);\n"
-"}")
+        self.SearchButton.setStyleSheet(Path('SearchButton.qss').read_text())
         self.SearchButton.setObjectName("SearchButton")
         self.SortText = QtWidgets.QLabel(parent=self.Database)
         self.SortText.setGeometry(QtCore.QRect(20, 50, 81, 21))
@@ -355,9 +363,10 @@ class Ui_MainPage(object):
         font = QtGui.QFont()
         font.setFamily("Roboto")
         item.setFont(font)
+
         self.tableWidget.setHorizontalHeaderItem(5, item)
         self.EditStudentButton = QtWidgets.QPushButton(parent=self.Database)
-        self.EditStudentButton.setEnabled(True)
+        self.EditStudentButton.setEnabled(False)
         self.EditStudentButton.setGeometry(QtCore.QRect(20, 590, 121, 31))
         font = QtGui.QFont()
         font.setFamily("Roboto")
@@ -366,7 +375,7 @@ class Ui_MainPage(object):
         self.EditStudentButton.setCursor(QtGui.QCursor(QtCore.Qt.CursorShape.PointingHandCursor))
         self.EditStudentButton.setObjectName("EditStudentButton")
         self.DeleteStudentButton = QtWidgets.QPushButton(parent=self.Database)
-        self.DeleteStudentButton.setEnabled(True)
+        self.DeleteStudentButton.setEnabled(False)
         self.DeleteStudentButton.setGeometry(QtCore.QRect(150, 590, 141, 31))
         font = QtGui.QFont()
         font.setFamily("Roboto")
@@ -374,6 +383,8 @@ class Ui_MainPage(object):
         self.DeleteStudentButton.setFont(font)
         self.DeleteStudentButton.setCursor(QtGui.QCursor(QtCore.Qt.CursorShape.PointingHandCursor))
         self.DeleteStudentButton.setObjectName("DeleteStudentButton")
+        ##-------------------------------------END OF DATABASE PANEL-------------------------------------
+
         self.Heading = QtWidgets.QFrame(parent=MainPage)
         self.Heading.setGeometry(QtCore.QRect(0, 0, 1491, 51))
         self.Heading.setFrameShape(QtWidgets.QFrame.Shape.StyledPanel)
@@ -447,6 +458,34 @@ class MainWindow(QMainWindow):
         self.ui.setupUi(self)
         self.setWindowTitle('Simple Student Information System')
         self.setWindowIcon(QIcon('./StudentIcon.png'))
+
+        self.ui.GenderDD.activated.connect(self.remove_empty_item)
+        self.ui.YLevelDD.activated.connect(self.remove_empty_item)
+
+        # Call the method to populate the table with CSV data
+        self.openStudentCSV()
+
+    def remove_empty_item(self):
+        combo = self.sender() 
+        if combo.itemText(0) == "":
+            combo.removeItem(0)
+
+    def openStudentCSV(self):
+            with open("Student.csv", "r") as StudentData:
+                reader = csv.reader(StudentData)
+                data = list(reader)
+
+                if data:
+                    self.ui.tableWidget.setRowCount(len(data) - 1)
+                    self.ui.tableWidget.setColumnCount(len(data[0]))
+                    self.ui.tableWidget.setHorizontalHeaderLabels(data[0])
+
+                    for row_idx, row in enumerate(data[1:]):
+                        for col_idx, cell in enumerate(row):
+                            item = QtWidgets.QTableWidgetItem(cell)
+                            self.ui.tableWidget.setItem(row_idx, col_idx, item)
+
+
 
 # Main Function to Run the Application
 def main():
