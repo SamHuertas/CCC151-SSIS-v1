@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>Dialog</class>
- <widget class="QDialog" name="Dialog">
+ <class>MainPage</class>
+ <widget class="QDialog" name="MainPage">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1317</width>
-    <height>786</height>
+    <width>1491</width>
+    <height>751</height>
    </rect>
   </property>
   <property name="font">
@@ -18,14 +18,70 @@
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
-  <widget class="QFrame" name="addstudent">
+  <property name="styleSheet">
+   <string notr="true">#MainPage {
+	background-color: #e0f7fa;
+}
+
+#AddStudent, #AddCollege, #AddProgram, #Database {
+	background-color: #ffffff;
+	border-radius: 18px;
+	box-shadow: 10px 9px 7px 1px rgba(0,0,0,0.83);
+}
+
+#MainPage QPushButton {
+	background-color: #1e88e5;
+	border-radius: 13px;
+	box-shadow: 10px 9px 7px 1px rgba(0,0,0,0.83);
+	color: white;
+}
+
+#MainPage QPushButton:hover {
+	background-color: rgb(27, 126, 212);
+}
+
+#MainPage QPushButton:pressed {
+	border: 4px solid rgb(152, 205, 229);
+}
+
+#MainPage QLineEdit {
+	border-radius: 5px;
+	background-color: rgb(245, 245, 245);
+	border: 1px solid rgb(235, 235, 235);
+}
+
+#MainPage QLineEdit:hover {
+	border: rgb(250, 250, 250);
+}
+
+#MainPage QLineEdit:focus {
+	border: rgb(210, 210, 210);
+	background-color: rgb(231, 231, 231)
+}
+
+QTableWidget{
+	border-radius: 15px;
+	background-color: rgb(245, 245, 245);
+	border: 1px solid rgb(235, 235, 235);
+}
+
+#Heading {
+	background-color: rgb(252, 252, 252);
+}</string>
+  </property>
+  <widget class="QFrame" name="AddStudent">
    <property name="geometry">
     <rect>
-     <x>920</x>
-     <y>30</y>
-     <width>361</width>
+     <x>1050</x>
+     <y>80</y>
+     <width>411</width>
      <height>271</height>
     </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Roboto</family>
+    </font>
    </property>
    <property name="frameShape">
     <enum>QFrame::StyledPanel</enum>
@@ -33,7 +89,7 @@
    <property name="frameShadow">
     <enum>QFrame::Raised</enum>
    </property>
-   <widget class="QLabel" name="label">
+   <widget class="QLabel" name="AddStudentText">
     <property name="geometry">
      <rect>
       <x>10</x>
@@ -44,6 +100,7 @@
     </property>
     <property name="font">
      <font>
+      <family>Roboto</family>
       <pointsize>12</pointsize>
       <weight>75</weight>
       <bold>true</bold>
@@ -53,7 +110,7 @@
      <string>Add Student</string>
     </property>
    </widget>
-   <widget class="QLabel" name="label_2">
+   <widget class="QLabel" name="IDText">
     <property name="geometry">
      <rect>
       <x>30</x>
@@ -64,6 +121,7 @@
     </property>
     <property name="font">
      <font>
+      <family>Roboto</family>
       <pointsize>12</pointsize>
      </font>
     </property>
@@ -71,7 +129,7 @@
      <string>ID #</string>
     </property>
    </widget>
-   <widget class="QLabel" name="label_3">
+   <widget class="QLabel" name="FNameText">
     <property name="geometry">
      <rect>
       <x>30</x>
@@ -82,6 +140,7 @@
     </property>
     <property name="font">
      <font>
+      <family>Roboto</family>
       <pointsize>12</pointsize>
      </font>
     </property>
@@ -89,7 +148,7 @@
      <string>First Name</string>
     </property>
    </widget>
-   <widget class="QLabel" name="label_4">
+   <widget class="QLabel" name="LNameText">
     <property name="geometry">
      <rect>
       <x>30</x>
@@ -100,6 +159,7 @@
     </property>
     <property name="font">
      <font>
+      <family>Roboto</family>
       <pointsize>12</pointsize>
      </font>
     </property>
@@ -107,7 +167,7 @@
      <string>Last Name</string>
     </property>
    </widget>
-   <widget class="QLabel" name="label_6">
+   <widget class="QLabel" name="YLevelText">
     <property name="geometry">
      <rect>
       <x>30</x>
@@ -118,6 +178,7 @@
     </property>
     <property name="font">
      <font>
+      <family>Roboto</family>
       <pointsize>12</pointsize>
      </font>
     </property>
@@ -125,25 +186,29 @@
      <string>Year Level</string>
     </property>
    </widget>
-   <widget class="QLineEdit" name="IDtextbox">
+   <widget class="QLineEdit" name="IDTB">
     <property name="geometry">
      <rect>
       <x>150</x>
       <y>40</y>
-      <width>191</width>
+      <width>231</width>
       <height>21</height>
      </rect>
     </property>
     <property name="font">
      <font>
-      <pointsize>12</pointsize>
+      <family>Roboto</family>
+      <pointsize>10</pointsize>
      </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"/>
     </property>
     <property name="placeholderText">
      <string/>
     </property>
    </widget>
-   <widget class="QComboBox" name="genderdd">
+   <widget class="QComboBox" name="GenderDD">
     <property name="geometry">
      <rect>
       <x>150</x>
@@ -152,8 +217,13 @@
       <height>21</height>
      </rect>
     </property>
+    <property name="font">
+     <font>
+      <family>Roboto</family>
+     </font>
+    </property>
    </widget>
-   <widget class="QLabel" name="label_5">
+   <widget class="QLabel" name="GenderText">
     <property name="geometry">
      <rect>
       <x>30</x>
@@ -164,6 +234,7 @@
     </property>
     <property name="font">
      <font>
+      <family>Roboto</family>
       <pointsize>12</pointsize>
      </font>
     </property>
@@ -171,7 +242,7 @@
      <string>Gender</string>
     </property>
    </widget>
-   <widget class="QComboBox" name="yearleveldd">
+   <widget class="QComboBox" name="YLevelDD">
     <property name="geometry">
      <rect>
       <x>150</x>
@@ -180,44 +251,51 @@
       <height>21</height>
      </rect>
     </property>
+    <property name="font">
+     <font>
+      <family>Roboto</family>
+     </font>
+    </property>
    </widget>
-   <widget class="QLineEdit" name="fnametextbox">
+   <widget class="QLineEdit" name="FNameTB">
     <property name="geometry">
      <rect>
       <x>150</x>
       <y>70</y>
-      <width>191</width>
+      <width>231</width>
       <height>21</height>
      </rect>
     </property>
     <property name="font">
      <font>
-      <pointsize>12</pointsize>
+      <family>Roboto</family>
+      <pointsize>10</pointsize>
      </font>
     </property>
     <property name="placeholderText">
      <string/>
     </property>
    </widget>
-   <widget class="QLineEdit" name="lnametextbox">
+   <widget class="QLineEdit" name="LNameTB">
     <property name="geometry">
      <rect>
       <x>150</x>
       <y>100</y>
-      <width>191</width>
+      <width>231</width>
       <height>21</height>
      </rect>
     </property>
     <property name="font">
      <font>
-      <pointsize>12</pointsize>
+      <family>Roboto</family>
+      <pointsize>10</pointsize>
      </font>
     </property>
     <property name="placeholderText">
      <string/>
     </property>
    </widget>
-   <widget class="QLabel" name="label_7">
+   <widget class="QLabel" name="PCodeText">
     <property name="geometry">
      <rect>
       <x>30</x>
@@ -228,6 +306,7 @@
     </property>
     <property name="font">
      <font>
+      <family>Roboto</family>
       <pointsize>12</pointsize>
      </font>
     </property>
@@ -235,7 +314,7 @@
      <string>Program Code</string>
     </property>
    </widget>
-   <widget class="QComboBox" name="pcodedd">
+   <widget class="QComboBox" name="PCodeDD">
     <property name="geometry">
      <rect>
       <x>150</x>
@@ -244,18 +323,24 @@
       <height>21</height>
      </rect>
     </property>
+    <property name="font">
+     <font>
+      <family>Roboto</family>
+     </font>
+    </property>
    </widget>
-   <widget class="QPushButton" name="addstudentbutton">
+   <widget class="QPushButton" name="AddStudentButton">
     <property name="geometry">
      <rect>
-      <x>220</x>
+      <x>280</x>
       <y>230</y>
-      <width>131</width>
+      <width>121</width>
       <height>31</height>
      </rect>
     </property>
     <property name="font">
      <font>
+      <family>Roboto</family>
       <pointsize>14</pointsize>
      </font>
     </property>
@@ -267,14 +352,19 @@
     </property>
    </widget>
   </widget>
-  <widget class="QFrame" name="addprogram">
+  <widget class="QFrame" name="AddProgram">
    <property name="geometry">
     <rect>
-     <x>920</x>
-     <y>470</y>
-     <width>361</width>
+     <x>1050</x>
+     <y>540</y>
+     <width>411</width>
      <height>181</height>
     </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Roboto</family>
+    </font>
    </property>
    <property name="frameShape">
     <enum>QFrame::StyledPanel</enum>
@@ -282,7 +372,7 @@
    <property name="frameShadow">
     <enum>QFrame::Raised</enum>
    </property>
-   <widget class="QLabel" name="label_8">
+   <widget class="QLabel" name="AddProgramText">
     <property name="geometry">
      <rect>
       <x>10</x>
@@ -293,6 +383,7 @@
     </property>
     <property name="font">
      <font>
+      <family>Roboto</family>
       <pointsize>12</pointsize>
       <weight>75</weight>
       <bold>true</bold>
@@ -302,7 +393,7 @@
      <string>Add Program</string>
     </property>
    </widget>
-   <widget class="QLabel" name="label_11">
+   <widget class="QLabel" name="PCodeText2">
     <property name="geometry">
      <rect>
       <x>30</x>
@@ -313,6 +404,7 @@
     </property>
     <property name="font">
      <font>
+      <family>Roboto</family>
       <pointsize>12</pointsize>
      </font>
     </property>
@@ -320,25 +412,26 @@
      <string>Code</string>
     </property>
    </widget>
-   <widget class="QLineEdit" name="codetextbox">
+   <widget class="QLineEdit" name="PCodeTB">
     <property name="geometry">
      <rect>
       <x>150</x>
       <y>40</y>
-      <width>191</width>
+      <width>221</width>
       <height>21</height>
      </rect>
     </property>
     <property name="font">
      <font>
-      <pointsize>12</pointsize>
+      <family>Roboto</family>
+      <pointsize>10</pointsize>
      </font>
     </property>
     <property name="placeholderText">
      <string>ex. BSCS</string>
     </property>
    </widget>
-   <widget class="QLabel" name="label_9">
+   <widget class="QLabel" name="PNameText">
     <property name="geometry">
      <rect>
       <x>30</x>
@@ -349,6 +442,7 @@
     </property>
     <property name="font">
      <font>
+      <family>Roboto</family>
       <pointsize>12</pointsize>
      </font>
     </property>
@@ -356,7 +450,7 @@
      <string>Program Name</string>
     </property>
    </widget>
-   <widget class="QLabel" name="label_10">
+   <widget class="QLabel" name="PCollCodeText">
     <property name="geometry">
      <rect>
       <x>30</x>
@@ -367,6 +461,7 @@
     </property>
     <property name="font">
      <font>
+      <family>Roboto</family>
       <pointsize>12</pointsize>
      </font>
     </property>
@@ -374,18 +469,19 @@
      <string>College Code</string>
     </property>
    </widget>
-   <widget class="QLineEdit" name="pnametextbox">
+   <widget class="QLineEdit" name="PNameTB">
     <property name="geometry">
      <rect>
       <x>150</x>
       <y>70</y>
-      <width>191</width>
+      <width>221</width>
       <height>21</height>
      </rect>
     </property>
     <property name="font">
      <font>
-      <pointsize>12</pointsize>
+      <family>Roboto</family>
+      <pointsize>10</pointsize>
      </font>
     </property>
     <property name="text">
@@ -395,31 +491,10 @@
      <string>ex. Bachelor of Science in Computer Science</string>
     </property>
    </widget>
-   <widget class="QLineEdit" name="ccodetextbox">
+   <widget class="QPushButton" name="AddProgramButton">
     <property name="geometry">
      <rect>
-      <x>150</x>
-      <y>100</y>
-      <width>191</width>
-      <height>21</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>12</pointsize>
-     </font>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-    <property name="placeholderText">
-     <string>ex. CCS</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="addprogrambutton">
-    <property name="geometry">
-     <rect>
-      <x>220</x>
+      <x>280</x>
       <y>140</y>
       <width>121</width>
       <height>31</height>
@@ -427,6 +502,7 @@
     </property>
     <property name="font">
      <font>
+      <family>Roboto</family>
       <pointsize>14</pointsize>
      </font>
     </property>
@@ -437,15 +513,35 @@
      <string>Add Program</string>
     </property>
    </widget>
+   <widget class="QComboBox" name="PCollCodeDD">
+    <property name="geometry">
+     <rect>
+      <x>150</x>
+      <y>100</y>
+      <width>81</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Roboto</family>
+     </font>
+    </property>
+   </widget>
   </widget>
-  <widget class="QFrame" name="addcollege">
+  <widget class="QFrame" name="AddCollege">
    <property name="geometry">
     <rect>
-     <x>920</x>
-     <y>310</y>
-     <width>361</width>
+     <x>1050</x>
+     <y>370</y>
+     <width>411</width>
      <height>151</height>
     </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Roboto</family>
+    </font>
    </property>
    <property name="frameShape">
     <enum>QFrame::StyledPanel</enum>
@@ -453,7 +549,7 @@
    <property name="frameShadow">
     <enum>QFrame::Raised</enum>
    </property>
-   <widget class="QLabel" name="label_12">
+   <widget class="QLabel" name="AddCollegeText">
     <property name="geometry">
      <rect>
       <x>10</x>
@@ -464,6 +560,7 @@
     </property>
     <property name="font">
      <font>
+      <family>Roboto</family>
       <pointsize>12</pointsize>
       <weight>75</weight>
       <bold>true</bold>
@@ -473,7 +570,7 @@
      <string>Add College</string>
     </property>
    </widget>
-   <widget class="QLabel" name="label_13">
+   <widget class="QLabel" name="CCodeText">
     <property name="geometry">
      <rect>
       <x>30</x>
@@ -484,6 +581,7 @@
     </property>
     <property name="font">
      <font>
+      <family>Roboto</family>
       <pointsize>12</pointsize>
      </font>
     </property>
@@ -491,18 +589,19 @@
      <string>Code</string>
     </property>
    </widget>
-   <widget class="QLineEdit" name="ccodetextbox_2">
+   <widget class="QLineEdit" name="CCodeTB">
     <property name="geometry">
      <rect>
       <x>150</x>
       <y>40</y>
-      <width>191</width>
+      <width>231</width>
       <height>21</height>
      </rect>
     </property>
     <property name="font">
      <font>
-      <pointsize>12</pointsize>
+      <family>Roboto</family>
+      <pointsize>10</pointsize>
      </font>
     </property>
     <property name="text">
@@ -512,7 +611,7 @@
      <string>ex. CCS</string>
     </property>
    </widget>
-   <widget class="QLabel" name="label_14">
+   <widget class="QLabel" name="CNameText">
     <property name="geometry">
      <rect>
       <x>30</x>
@@ -523,6 +622,7 @@
     </property>
     <property name="font">
      <font>
+      <family>Roboto</family>
       <pointsize>12</pointsize>
      </font>
     </property>
@@ -530,18 +630,19 @@
      <string>College Name</string>
     </property>
    </widget>
-   <widget class="QLineEdit" name="cnametextbox">
+   <widget class="QLineEdit" name="CNameTB">
     <property name="geometry">
      <rect>
       <x>150</x>
       <y>70</y>
-      <width>191</width>
+      <width>231</width>
       <height>21</height>
      </rect>
     </property>
     <property name="font">
      <font>
-      <pointsize>12</pointsize>
+      <family>Roboto</family>
+      <pointsize>10</pointsize>
      </font>
     </property>
     <property name="text">
@@ -551,10 +652,10 @@
      <string>ex. College of Computer Studies</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="addprogrambutton_2">
+   <widget class="QPushButton" name="AddCollegeButton">
     <property name="geometry">
      <rect>
-      <x>220</x>
+      <x>280</x>
       <y>110</y>
       <width>121</width>
       <height>31</height>
@@ -562,6 +663,7 @@
     </property>
     <property name="font">
      <font>
+      <family>Roboto</family>
       <pointsize>14</pointsize>
      </font>
     </property>
@@ -573,14 +675,19 @@
     </property>
    </widget>
   </widget>
-  <widget class="QFrame" name="frame">
+  <widget class="QFrame" name="Database">
    <property name="geometry">
     <rect>
-     <x>50</x>
-     <y>50</y>
-     <width>831</width>
-     <height>571</height>
+     <x>30</x>
+     <y>80</y>
+     <width>1001</width>
+     <height>641</height>
     </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Roboto</family>
+    </font>
    </property>
    <property name="frameShape">
     <enum>QFrame::StyledPanel</enum>
@@ -588,7 +695,7 @@
    <property name="frameShadow">
     <enum>QFrame::Raised</enum>
    </property>
-   <widget class="QLabel" name="label_15">
+   <widget class="QLabel" name="SearchText">
     <property name="geometry">
      <rect>
       <x>20</x>
@@ -599,6 +706,7 @@
     </property>
     <property name="font">
      <font>
+      <family>Roboto</family>
       <pointsize>12</pointsize>
      </font>
     </property>
@@ -606,27 +714,33 @@
      <string>Search by:</string>
     </property>
    </widget>
-   <widget class="QComboBox" name="comboBox">
+   <widget class="QComboBox" name="SearchDD">
     <property name="geometry">
      <rect>
       <x>100</x>
       <y>20</y>
-      <width>91</width>
+      <width>81</width>
       <height>22</height>
      </rect>
     </property>
+    <property name="font">
+     <font>
+      <family>Roboto</family>
+     </font>
+    </property>
    </widget>
-   <widget class="QLineEdit" name="lineEdit">
+   <widget class="QLineEdit" name="SearchTB">
     <property name="geometry">
      <rect>
-      <x>200</x>
+      <x>190</x>
       <y>20</y>
-      <width>201</width>
+      <width>211</width>
       <height>21</height>
      </rect>
     </property>
     <property name="font">
      <font>
+      <family>Roboto</family>
       <pointsize>12</pointsize>
      </font>
     </property>
@@ -634,7 +748,7 @@
      <string/>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton">
+   <widget class="QPushButton" name="SearchButton">
     <property name="geometry">
      <rect>
       <x>410</x>
@@ -645,17 +759,30 @@
     </property>
     <property name="font">
      <font>
+      <family>Roboto</family>
       <pointsize>12</pointsize>
      </font>
     </property>
     <property name="cursor">
      <cursorShape>PointingHandCursor</cursorShape>
     </property>
+    <property name="styleSheet">
+     <string notr="true">#SearchButton
+{	
+	background-color: #1e88e5;
+	border-radius: 2px;
+	box-shadow: 10px 9px 7px 1px rgba(0,0,0,0.83);
+	color: white;
+}
+#SearchButton:pressed {
+	border: 3px solid rgb(152, 205, 229);
+}</string>
+    </property>
     <property name="text">
      <string>Search</string>
     </property>
    </widget>
-   <widget class="QLabel" name="label_16">
+   <widget class="QLabel" name="SortText">
     <property name="geometry">
      <rect>
       <x>20</x>
@@ -666,6 +793,7 @@
     </property>
     <property name="font">
      <font>
+      <family>Roboto</family>
       <pointsize>12</pointsize>
      </font>
     </property>
@@ -673,24 +801,204 @@
      <string>Sort by:</string>
     </property>
    </widget>
-   <widget class="QComboBox" name="comboBox_2">
+   <widget class="QComboBox" name="SortDD">
     <property name="geometry">
      <rect>
       <x>100</x>
       <y>50</y>
-      <width>91</width>
+      <width>81</width>
       <height>22</height>
      </rect>
     </property>
+    <property name="font">
+     <font>
+      <family>Roboto</family>
+     </font>
+    </property>
+    <item>
+     <property name="text">
+      <string>ID#</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>First Name</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Last Name</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Year Level</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Program Code</string>
+     </property>
+    </item>
    </widget>
    <widget class="QTableWidget" name="tableWidget">
     <property name="geometry">
      <rect>
       <x>20</x>
       <y>90</y>
-      <width>791</width>
-      <height>461</height>
+      <width>961</width>
+      <height>491</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Roboto</family>
+     </font>
+    </property>
+    <column>
+     <property name="text">
+      <string>ID#</string>
+     </property>
+     <property name="font">
+      <font>
+       <family>Roboto</family>
+      </font>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>First Name</string>
+     </property>
+     <property name="font">
+      <font>
+       <family>Roboto</family>
+      </font>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Last Name</string>
+     </property>
+     <property name="font">
+      <font>
+       <family>Roboto</family>
+      </font>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Year Level</string>
+     </property>
+     <property name="font">
+      <font>
+       <family>Roboto</family>
+      </font>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Gender</string>
+     </property>
+     <property name="font">
+      <font>
+       <family>Roboto</family>
+      </font>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Program Code</string>
+     </property>
+     <property name="font">
+      <font>
+       <family>Roboto</family>
+      </font>
+     </property>
+    </column>
+   </widget>
+   <widget class="QPushButton" name="EditStudentButton">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>590</y>
+      <width>121</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Roboto</family>
+      <pointsize>14</pointsize>
+     </font>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="text">
+     <string>Edit Student</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="DeleteStudentButton">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>150</x>
+      <y>590</y>
+      <width>141</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Roboto</family>
+      <pointsize>14</pointsize>
+     </font>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="text">
+     <string>Delete Student</string>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QFrame" name="Heading">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1491</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="frameShape">
+    <enum>QFrame::StyledPanel</enum>
+   </property>
+   <property name="frameShadow">
+    <enum>QFrame::Raised</enum>
+   </property>
+   <widget class="QLabel" name="HeadingTitle">
+    <property name="geometry">
+     <rect>
+      <x>40</x>
+      <y>10</y>
+      <width>211</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Roboto</family>
+      <pointsize>12</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>Student Information System</string>
     </property>
    </widget>
   </widget>
