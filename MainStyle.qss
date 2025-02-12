@@ -46,6 +46,12 @@ QTableWidget{
 	border-radius: 15px;
 	background-color: rgb(245, 245, 245);
 	border: 1px solid rgb(235, 235, 235);
+	alternate-background-color: #e6e6e6;
+}
+
+QTableWidget::item:selected{
+	background-color: #a2d2e8;
+	color: black;
 }
 
 #Heading {

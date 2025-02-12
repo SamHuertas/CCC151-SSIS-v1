@@ -7,8 +7,9 @@
 
 from pathlib import Path
 from PyQt6 import QtCore, QtGui, QtWidgets
-from PyQt6.QtGui import QIcon, QColor
-from PyQt6.QtWidgets import QApplication, QMainWindow, QGraphicsDropShadowEffect
+from PyQt6.QtGui import QIcon, QColor, QRegularExpressionValidator
+from PyQt6.QtWidgets import QApplication, QMainWindow, QGraphicsDropShadowEffect, QHeaderView
+from PyQt6.QtCore import QRegularExpression
 import sys
 import csv
 
@@ -433,18 +434,7 @@ class Ui_MainPage(object):
         self.SortDD.setItemText(2, _translate("MainPage", "Last Name"))
         self.SortDD.setItemText(3, _translate("MainPage", "Year Level"))
         self.SortDD.setItemText(4, _translate("MainPage", "Program Code"))
-        item = self.tableWidget.horizontalHeaderItem(0)
-        item.setText(_translate("MainPage", "ID#"))
-        item = self.tableWidget.horizontalHeaderItem(1)
-        item.setText(_translate("MainPage", "First Name"))
-        item = self.tableWidget.horizontalHeaderItem(2)
-        item.setText(_translate("MainPage", "Last Name"))
-        item = self.tableWidget.horizontalHeaderItem(3)
-        item.setText(_translate("MainPage", "Year Level"))
-        item = self.tableWidget.horizontalHeaderItem(4)
-        item.setText(_translate("MainPage", "Gender"))
-        item = self.tableWidget.horizontalHeaderItem(5)
-        item.setText(_translate("MainPage", "Program Code"))
+
         self.EditStudentButton.setText(_translate("MainPage", "Edit Student"))
         self.DeleteStudentButton.setText(_translate("MainPage", "Delete Student"))
         self.HeadingTitle.setText(_translate("MainPage", "Student Information System"))
@@ -459,11 +449,20 @@ class MainWindow(QMainWindow):
         self.setWindowTitle('Simple Student Information System')
         self.setWindowIcon(QIcon('./StudentIcon.png'))
 
-        self.ui.GenderDD.activated.connect(self.remove_empty_item)
-        self.ui.YLevelDD.activated.connect(self.remove_empty_item)
-
-        # Call the method to populate the table with CSV data
+        self.setupValidators()
         self.openStudentCSV()
+        self.TableFormat()
+        self.AddStudentButtonState()
+        self.setupConnections()
+        self.ui.AddStudentButton.clicked.connect(self.AddStudentUpdateTable)
+
+    def setupConnections(self):
+        self.ui.IDTB.textChanged.connect(self.AddStudentButtonState)
+        self.ui.FNameTB.textChanged.connect(self.AddStudentButtonState)
+        self.ui.LNameTB.textChanged.connect(self.AddStudentButtonState)
+        self.ui.GenderDD.currentTextChanged.connect(self.AddStudentButtonState)
+        self.ui.YLevelDD.currentTextChanged.connect(self.AddStudentButtonState)
+        self.ui.PCodeDD.currentTextChanged.connect(self.AddStudentButtonState)
 
     def remove_empty_item(self):
         combo = self.sender() 
@@ -485,8 +484,60 @@ class MainWindow(QMainWindow):
                             item = QtWidgets.QTableWidgetItem(cell)
                             self.ui.tableWidget.setItem(row_idx, col_idx, item)
 
+    def TableFormat(self):
+        self.ui.tableWidget.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Fixed)
+        self.ui.tableWidget.verticalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Fixed)
+        self.ui.tableWidget.horizontalHeader().setHighlightSections(False)
+        self.ui.tableWidget.verticalHeader().setHighlightSections(False)
+        self.ui.tableWidget.setSelectionMode(QtWidgets.QAbstractItemView.SelectionMode.SingleSelection)
+        self.ui.tableWidget.setSelectionBehavior(QtWidgets.QAbstractItemView.SelectionBehavior.SelectRows)
+        self.ui.tableWidget.setColumnWidth(0, 70)
+        self.ui.tableWidget.setColumnWidth(1, 250)
+        self.ui.tableWidget.setColumnWidth(2, 150)
+        self.ui.tableWidget.setColumnWidth(3, 70)
+        self.ui.tableWidget.setColumnWidth(4, 70)
+        self.ui.tableWidget.setColumnWidth(5, 100)
+        self.ui.tableWidget.setAlternatingRowColors(True)
+    
+    def AddStudentButtonState(self):
+        student_id = self.ui.IDTB.text()
+        first_name = self.ui.FNameTB.text()
+        last_name = self.ui.LNameTB.text()
+        gender = self.ui.GenderDD.currentText()
+        year_level = self.ui.YLevelDD.currentText()
+        program_code = self.ui.PCodeDD.currentText()
 
+        if student_id and first_name and last_name and gender and year_level and program_code:
+            self.ui.AddStudentButton.setDisabled(False)
+        else:
+            self.ui.AddStudentButton.setDisabled(True)
 
+    def AddStudentUpdateTable(self):
+        with open("Student.csv", "a", newline='') as InputStudentData:
+            writer = csv.writer(InputStudentData)
+            writer.writerow([
+                self.ui.IDTB.text(),
+                self.ui.FNameTB.text().title(),
+                self.ui.LNameTB.text().title(),
+                self.ui.GenderDD.currentText(),
+                self.ui.YLevelDD.currentText(),
+                self.ui.PCodeDD.currentText()
+            ])
+        self.ui.IDTB.clear()
+        self.ui.FNameTB.clear()
+        self.ui.LNameTB.clear()
+        self.ui.GenderDD.setCurrentIndex(0)
+        self.ui.YLevelDD.setCurrentIndex(0)
+        self.ui.PCodeDD.setCurrentIndex(0)
+        self.ui.AddStudentButton.setDisabled(True)
+        self.openStudentCSV()
+
+    def setupValidators(self):
+        id_validator = QRegularExpressionValidator(QRegularExpression("[0-9-]+"), self.ui.IDTB)
+        self.ui.IDTB.setValidator(id_validator)
+        name_validator = QRegularExpressionValidator(QRegularExpression("[A-Za-z ]+"), self.ui.FNameTB)
+        self.ui.FNameTB.setValidator(name_validator)
+        self.ui.LNameTB.setValidator(name_validator)
 # Main Function to Run the Application
 def main():
     app = QApplication(sys.argv)
