@@ -1,1 +1,1 @@
-AddStudentUpdateTable
+        self.PopulateCollegeCode()

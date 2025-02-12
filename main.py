@@ -201,6 +201,7 @@ class Ui_MainPage(object):
         font.setPointSize(14)
         self.AddProgramButton.setFont(font)
         self.AddProgramButton.setCursor(QtGui.QCursor(QtCore.Qt.CursorShape.PointingHandCursor))
+        self.AddProgramButton.setDisabled(True)
         self.AddProgramButton.setObjectName("AddProgramButton")
         self.PCollCodeDD = QtWidgets.QComboBox(parent=self.AddProgram)
         self.PCollCodeDD.setGeometry(QtCore.QRect(150, 100, 81, 21))
@@ -208,6 +209,7 @@ class Ui_MainPage(object):
         font.setFamily("Roboto")
         self.PCollCodeDD.setFont(font)
         self.PCollCodeDD.setObjectName("PCollCodeDD")
+        self.PCollCodeDD.addItem("")
         ##-------------------------------------END OF ADD PROGRAM PANEL-------------------------------------
 
         ##-------------------------------------START OF ADD COLLEGE PANEL-------------------------------------
@@ -453,8 +455,11 @@ class MainWindow(QMainWindow):
         self.openStudentCSV()
         self.TableFormat()
         self.AddStudentButtonState()
+        self.AddCollegeButtonState()
         self.setupConnections()
         self.ui.AddStudentButton.clicked.connect(self.AddStudentUpdateTable)
+        self.ui.AddCollegeButton.clicked.connect(self.AddCollegeUpdateTable)
+        self.PopulateCollegeCode()
 
     def setupConnections(self):
         self.ui.IDTB.textChanged.connect(self.AddStudentButtonState)
@@ -463,6 +468,9 @@ class MainWindow(QMainWindow):
         self.ui.GenderDD.currentTextChanged.connect(self.AddStudentButtonState)
         self.ui.YLevelDD.currentTextChanged.connect(self.AddStudentButtonState)
         self.ui.PCodeDD.currentTextChanged.connect(self.AddStudentButtonState)
+
+        self.ui.CCodeTB.textChanged.connect(self.AddCollegeButtonState)
+        self.ui.CNameTB.textChanged.connect(self.AddCollegeButtonState)
 
     def remove_empty_item(self):
         combo = self.sender() 
@@ -511,7 +519,15 @@ class MainWindow(QMainWindow):
             self.ui.AddStudentButton.setDisabled(False)
         else:
             self.ui.AddStudentButton.setDisabled(True)
+    def AddCollegeButtonState(self):
+        college_code = self.ui.CCodeTB.text()
+        college_name = self.ui.CNameTB.text()
 
+        if college_code and college_name:
+            self.ui.AddCollegeButton.setDisabled(False)
+        else:
+            self.ui.AddCollegeButton.setDisabled(True)
+            
     def AddStudentUpdateTable(self):
         with open("Student.csv", "a", newline='') as InputStudentData:
             writer = csv.writer(InputStudentData)
@@ -531,11 +547,56 @@ class MainWindow(QMainWindow):
         self.ui.PCodeDD.setCurrentIndex(0)
         self.ui.AddStudentButton.setDisabled(True)
         self.openStudentCSV()
+    def AddCollegeUpdateTable(self):
+        with open("College.csv", "a", newline='') as InputCollegeData:
+            writer = csv.writer(InputCollegeData)
+            writer.writerow([
+                self.ui.CCodeTB.text().upper(),
+                self.ui.CNameTB.text().title()
+            ])
+            self.ui.CCodeTB.clear()
+            self.ui.CNameTB.clear()
+            self.ui.AddCollegeButton.setDisabled(True)
+        self.PopulateCollegeCode()
+
+    def PopulateCollegeCode(self):
+        self.SortCollegebyCode()
+        self.ui.PCollCodeDD.clear()
+        self.ui.PCollCodeDD.addItem("")  
+        with open("College.csv", "r") as CollegeCode:
+            reader = csv.reader(CollegeCode)
+            data = list(reader) 
+
+            if len(data) <= 1:
+                return 
+
+            header = data[0]
+            college_code_idx = header.index("College Code")
+
+            for row in data[1:]: 
+                if len(row) > college_code_idx: 
+                    collegecode_data = row[college_code_idx]
+                    self.ui.PCollCodeDD.addItem(collegecode_data)
+
+    def SortCollegebyCode(self):
+        with open("College.csv", "r", newline='') as file:
+            reader = list(csv.reader(file))
+            header = reader[0]
+            rows = reader[1:]
+            ccode_idx = header.index("College Code")
+            rows.sort(key=lambda row: row[ccode_idx])
+
+        with open("College.csv", "w", newline='') as writefile:
+            writer = csv.writer(writefile)
+            writer.writerow(header)
+            writer.writerows(rows)
 
     def setupValidators(self):
-        id_validator = QRegularExpressionValidator(QRegularExpression("[0-9-]+"), self.ui.IDTB)
+        code_validator = QRegularExpressionValidator(QRegularExpression("[A-Za-z]+"))
+        self.ui.CCodeTB.setValidator(code_validator)
+        id_validator = QRegularExpressionValidator(QRegularExpression("[0-9-]+"))
         self.ui.IDTB.setValidator(id_validator)
-        name_validator = QRegularExpressionValidator(QRegularExpression("[A-Za-z ]+"), self.ui.FNameTB)
+        name_validator = QRegularExpressionValidator(QRegularExpression("[A-Za-z ]+"))
         self.ui.FNameTB.setValidator(name_validator)
         self.ui.LNameTB.setValidator(name_validator)
 # Main Function to Run the Application
