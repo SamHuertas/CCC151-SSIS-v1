@@ -127,7 +127,7 @@ class Ui_MainPage(object):
         font.setFamily("Roboto")
         self.PCodeDD.setFont(font)
         self.PCodeDD.setObjectName("PCodeDD")
-        self.PCodeDD.addItems(["","Sample1", "Sample2"])
+        self.PCodeDD.addItem("")
         self.AddStudentButton = QtWidgets.QPushButton(parent=self.AddStudent)
         self.AddStudentButton.setGeometry(QtCore.QRect(280, 230, 121, 31))
         font = QtGui.QFont()
@@ -456,10 +456,13 @@ class MainWindow(QMainWindow):
         self.TableFormat()
         self.AddStudentButtonState()
         self.AddCollegeButtonState()
+        self.AddProgramButtonState()
         self.setupConnections()
         self.ui.AddStudentButton.clicked.connect(self.AddStudentUpdateTable)
         self.ui.AddCollegeButton.clicked.connect(self.AddCollegeUpdateTable)
+        self.ui.AddProgramButton.clicked.connect(self.AddProgramUpdateTable)
         self.PopulateCollegeCode()
+        self.PopulateProgramCode()
 
     def setupConnections(self):
         self.ui.IDTB.textChanged.connect(self.AddStudentButtonState)
@@ -471,6 +474,10 @@ class MainWindow(QMainWindow):
 
         self.ui.CCodeTB.textChanged.connect(self.AddCollegeButtonState)
         self.ui.CNameTB.textChanged.connect(self.AddCollegeButtonState)
+        
+        self.ui.PCodeTB.textChanged.connect(self.AddProgramButtonState)
+        self.ui.PNameTB.textChanged.connect(self.AddProgramButtonState)
+        self.ui.PCollCodeDD.currentTextChanged.connect(self.AddProgramButtonState)
 
     def remove_empty_item(self):
         combo = self.sender() 
@@ -527,7 +534,16 @@ class MainWindow(QMainWindow):
             self.ui.AddCollegeButton.setDisabled(False)
         else:
             self.ui.AddCollegeButton.setDisabled(True)
-            
+    def AddProgramButtonState(self):
+        program_code = self.ui.PCodeTB.text()
+        program_name = self.ui.PNameTB.text()
+        pcollege_code = self.ui.PCollCodeDD.currentText()
+
+        if program_code and program_name and pcollege_code:
+            self.ui.AddProgramButton.setDisabled(False)
+        else:
+            self.ui.AddProgramButton.setDisabled(True)
+              
     def AddStudentUpdateTable(self):
         with open("Student.csv", "a", newline='') as InputStudentData:
             writer = csv.writer(InputStudentData)
@@ -557,7 +573,20 @@ class MainWindow(QMainWindow):
             self.ui.CCodeTB.clear()
             self.ui.CNameTB.clear()
             self.ui.AddCollegeButton.setDisabled(True)
-        self.PopulateCollegeCode()
+        self.PopulateCollegeCode()   
+    def AddProgramUpdateTable(self):
+        with open("Program.csv", "a", newline='') as InputProgramData:
+            writer = csv.writer(InputProgramData)
+            writer.writerow([
+                self.ui.PCodeTB.text().upper(),
+                self.ui.PNameTB.text().title(),
+                self.ui.PCollCodeDD.currentText()
+            ])
+            self.ui.PCodeTB.clear()
+            self.ui.PNameTB.clear()
+            self.ui.PCollCodeDD.setCurrentIndex(0)
+            self.ui.AddProgramButton.setDisabled(True)
+        self.PopulateProgramCode()
 
     def PopulateCollegeCode(self):
         self.SortCollegebyCode()
@@ -577,6 +606,24 @@ class MainWindow(QMainWindow):
                 if len(row) > college_code_idx: 
                     collegecode_data = row[college_code_idx]
                     self.ui.PCollCodeDD.addItem(collegecode_data)
+    def PopulateProgramCode(self):
+        self.SortProgrambyCode()
+        self.ui.PCodeDD.clear()
+        self.ui.PCodeDD.addItem("")
+        with open("Program.csv", "r") as ProgramCode:
+            reader = csv.reader(ProgramCode)
+            data = list(reader)
+
+            if len(data) <= 1:
+                return
+
+            header = data[0]
+            program_code_idx = header.index("Program Code")
+
+            for row in data[1:]:
+                if len(row) > program_code_idx:
+                    programcode_data = row[program_code_idx]
+                    self.ui.PCodeDD.addItem(programcode_data)
 
     def SortCollegebyCode(self):
         with open("College.csv", "r", newline='') as file:
@@ -590,7 +637,20 @@ class MainWindow(QMainWindow):
             writer = csv.writer(writefile)
             writer.writerow(header)
             writer.writerows(rows)
-
+ 
+    def SortProgrambyCode(self):
+        with open("Program.csv", "r", newline='') as file:
+            reader = list(csv.reader(file))
+            header = reader[0]
+            rows = reader[1:]
+            pcode_idx = header.index("Program Code")
+            rows.sort(key = lambda row: row[pcode_idx])
+        
+        with open("Program.csv", "w", newline='') as writefile:
+            writer = csv.writer(writefile)
+            writer.writerow(header)
+            writer.writerows(rows)
+    
     def setupValidators(self):
         code_validator = QRegularExpressionValidator(QRegularExpression("[A-Za-z]+"))
         self.ui.CCodeTB.setValidator(code_validator)
