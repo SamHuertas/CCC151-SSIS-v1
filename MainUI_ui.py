@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'ssisui.ui'
+## Form generated from reading UI file 'MainUI.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.8.2
 ##
@@ -17,7 +17,8 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QPalette, QPixmap, QRadialGradient, QTransform)
 from PySide6.QtWidgets import (QApplication, QComboBox, QDialog, QFrame,
     QHeaderView, QLabel, QLineEdit, QPushButton,
-    QSizePolicy, QTableWidget, QTableWidgetItem, QWidget)
+    QSizePolicy, QTabWidget, QTableWidget, QTableWidgetItem,
+    QWidget)
 
 class Ui_MainPage(object):
     def setupUi(self, MainPage):
@@ -68,18 +69,45 @@ class Ui_MainPage(object):
 "}\n"
 "\n"
 "QTableWidget{\n"
-"	border-radius: 15px;\n"
 "	background-color: rgb(245, 245, 245);\n"
-"	border: 1px sol"
-                        "id rgb(235, 235, 235);\n"
+"	border: 1px solid rgb(235, 235, 235);\n"
+""
+                        "	border-bottom-left-radius: 5px;\n"
+"	border-bottom-right-radius: 5px;\n"
 "}\n"
 "\n"
 "#Heading {\n"
 "	background-color: rgb(252, 252, 252);\n"
+"}\n"
+"\n"
+"QTabWidget:pane {\n"
+"	border:0;\n"
+"}\n"
+"\n"
+"QTabBar::tab {\n"
+"    border: 1px solid #cccccc;\n"
+"	background: #e6e6e6;\n"
+"    border-top-left-radius: 5px;\n"
+"    border-top-right-radius: 5px;\n"
+"	padding: 3px;\n"
+"    min-width: 2ex;\n"
+"}\n"
+"\n"
+"QTabBar::tab:hover {\n"
+"	background-color: #c1bfbf;\n"
+"	\n"
+" }\n"
+"\n"
+"QTabBar::tab:selected {\n"
+"    background: #c1bfbf;\n"
+"}\n"
+"\n"
+"QTabBar::tab:!selected{\n"
+"	margin-top: 1.5px;\n"
 "}")
         self.AddStudent = QFrame(MainPage)
         self.AddStudent.setObjectName(u"AddStudent")
-        self.AddStudent.setGeometry(QRect(1050, 80, 411, 271))
+        self.AddStudent.setGeometry(QRect(1050, 70, 411, 271))
         font1 = QFont()
         font1.setFamilies([u"Roboto"])
         self.AddStudent.setFont(font1)
@@ -197,7 +225,7 @@ class Ui_MainPage(object):
         self.PCollCodeDD.setFont(font1)
         self.AddCollege = QFrame(MainPage)
         self.AddCollege.setObjectName(u"AddCollege")
-        self.AddCollege.setGeometry(QRect(1050, 370, 411, 151))
+        self.AddCollege.setGeometry(QRect(1050, 360, 411, 161))
         self.AddCollege.setFont(font1)
         self.AddCollege.setFrameShape(QFrame.StyledPanel)
         self.AddCollege.setFrameShadow(QFrame.Raised)
@@ -223,12 +251,12 @@ class Ui_MainPage(object):
         self.CNameTB.setFont(font4)
         self.AddCollegeButton = QPushButton(self.AddCollege)
         self.AddCollegeButton.setObjectName(u"AddCollegeButton")
-        self.AddCollegeButton.setGeometry(QRect(280, 110, 121, 31))
+        self.AddCollegeButton.setGeometry(QRect(280, 120, 121, 31))
         self.AddCollegeButton.setFont(font5)
         self.AddCollegeButton.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
         self.Database = QFrame(MainPage)
         self.Database.setObjectName(u"Database")
-        self.Database.setGeometry(QRect(30, 80, 1001, 641))
+        self.Database.setGeometry(QRect(30, 70, 1001, 651))
         self.Database.setFont(font1)
         self.Database.setFrameShape(QFrame.StyledPanel)
         self.Database.setFrameShadow(QFrame.Raised)
@@ -238,15 +266,15 @@ class Ui_MainPage(object):
         self.SearchText.setFont(font3)
         self.SearchDD = QComboBox(self.Database)
         self.SearchDD.setObjectName(u"SearchDD")
-        self.SearchDD.setGeometry(QRect(100, 20, 81, 22))
+        self.SearchDD.setGeometry(QRect(100, 20, 101, 22))
         self.SearchDD.setFont(font1)
         self.SearchTB = QLineEdit(self.Database)
         self.SearchTB.setObjectName(u"SearchTB")
-        self.SearchTB.setGeometry(QRect(190, 20, 211, 21))
+        self.SearchTB.setGeometry(QRect(210, 20, 211, 21))
         self.SearchTB.setFont(font3)
         self.SearchButton = QPushButton(self.Database)
         self.SearchButton.setObjectName(u"SearchButton")
-        self.SearchButton.setGeometry(QRect(410, 20, 61, 21))
+        self.SearchButton.setGeometry(QRect(430, 20, 61, 21))
         self.SearchButton.setFont(font3)
         self.SearchButton.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
         self.SearchButton.setStyleSheet(u"#SearchButton\n"
@@ -261,7 +289,7 @@ class Ui_MainPage(object):
 "}")
         self.SortText = QLabel(self.Database)
         self.SortText.setObjectName(u"SortText")
-        self.SortText.setGeometry(QRect(20, 50, 81, 21))
+        self.SortText.setGeometry(QRect(810, 20, 81, 21))
         self.SortText.setFont(font3)
         self.SortDD = QComboBox(self.Database)
         self.SortDD.addItem("")
@@ -270,55 +298,120 @@ class Ui_MainPage(object):
         self.SortDD.addItem("")
         self.SortDD.addItem("")
         self.SortDD.setObjectName(u"SortDD")
-        self.SortDD.setGeometry(QRect(100, 50, 81, 22))
+        self.SortDD.setGeometry(QRect(870, 20, 101, 22))
         self.SortDD.setFont(font1)
-        self.tableWidget = QTableWidget(self.Database)
-        if (self.tableWidget.columnCount() < 6):
-            self.tableWidget.setColumnCount(6)
+        self.ListData = QTabWidget(self.Database)
+        self.ListData.setObjectName(u"ListData")
+        self.ListData.setGeometry(QRect(20, 60, 961, 581))
+        self.ListData.setFont(font4)
+        self.ListData.setCursor(QCursor(Qt.CursorShape.ArrowCursor))
+        self.ListData.setTabPosition(QTabWidget.North)
+        self.ListData.setTabShape(QTabWidget.Rounded)
+        self.ListData.setElideMode(Qt.ElideNone)
+        self.StudentDatabase = QWidget()
+        self.StudentDatabase.setObjectName(u"StudentDatabase")
+        self.StudentTable = QTableWidget(self.StudentDatabase)
+        if (self.StudentTable.columnCount() < 6):
+            self.StudentTable.setColumnCount(6)
         __qtablewidgetitem = QTableWidgetItem()
         __qtablewidgetitem.setFont(font1);
-        self.tableWidget.setHorizontalHeaderItem(0, __qtablewidgetitem)
+        self.StudentTable.setHorizontalHeaderItem(0, __qtablewidgetitem)
         __qtablewidgetitem1 = QTableWidgetItem()
         __qtablewidgetitem1.setFont(font1);
-        self.tableWidget.setHorizontalHeaderItem(1, __qtablewidgetitem1)
+        self.StudentTable.setHorizontalHeaderItem(1, __qtablewidgetitem1)
         __qtablewidgetitem2 = QTableWidgetItem()
         __qtablewidgetitem2.setFont(font1);
-        self.tableWidget.setHorizontalHeaderItem(2, __qtablewidgetitem2)
+        self.StudentTable.setHorizontalHeaderItem(2, __qtablewidgetitem2)
         __qtablewidgetitem3 = QTableWidgetItem()
         __qtablewidgetitem3.setFont(font1);
-        self.tableWidget.setHorizontalHeaderItem(3, __qtablewidgetitem3)
+        self.StudentTable.setHorizontalHeaderItem(3, __qtablewidgetitem3)
         __qtablewidgetitem4 = QTableWidgetItem()
         __qtablewidgetitem4.setFont(font1);
-        self.tableWidget.setHorizontalHeaderItem(4, __qtablewidgetitem4)
+        self.StudentTable.setHorizontalHeaderItem(4, __qtablewidgetitem4)
         __qtablewidgetitem5 = QTableWidgetItem()
         __qtablewidgetitem5.setFont(font1);
-        self.tableWidget.setHorizontalHeaderItem(5, __qtablewidgetitem5)
-        self.tableWidget.setObjectName(u"tableWidget")
-        self.tableWidget.setGeometry(QRect(20, 90, 961, 491))
-        self.tableWidget.setFont(font1)
-        self.EditStudentButton = QPushButton(self.Database)
+        self.StudentTable.setHorizontalHeaderItem(5, __qtablewidgetitem5)
+        self.StudentTable.setObjectName(u"StudentTable")
+        self.StudentTable.setGeometry(QRect(0, 0, 961, 511))
+        self.StudentTable.setFont(font1)
+        self.StudentTable.setAutoFillBackground(False)
+        self.EditStudentButton = QPushButton(self.StudentDatabase)
         self.EditStudentButton.setObjectName(u"EditStudentButton")
         self.EditStudentButton.setEnabled(True)
-        self.EditStudentButton.setGeometry(QRect(20, 590, 121, 31))
+        self.EditStudentButton.setGeometry(QRect(0, 520, 121, 31))
         self.EditStudentButton.setFont(font5)
         self.EditStudentButton.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
-        self.DeleteStudentButton = QPushButton(self.Database)
+        self.DeleteStudentButton = QPushButton(self.StudentDatabase)
         self.DeleteStudentButton.setObjectName(u"DeleteStudentButton")
         self.DeleteStudentButton.setEnabled(True)
-        self.DeleteStudentButton.setGeometry(QRect(150, 590, 141, 31))
+        self.DeleteStudentButton.setGeometry(QRect(130, 520, 141, 31))
         self.DeleteStudentButton.setFont(font5)
         self.DeleteStudentButton.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
+        self.ListData.addTab(self.StudentDatabase, "")
+        self.ProgramDatabase = QWidget()
+        self.ProgramDatabase.setObjectName(u"ProgramDatabase")
+        self.EditProgramButton = QPushButton(self.ProgramDatabase)
+        self.EditProgramButton.setObjectName(u"EditProgramButton")
+        self.EditProgramButton.setEnabled(True)
+        self.EditProgramButton.setGeometry(QRect(0, 520, 121, 31))
+        self.EditProgramButton.setFont(font5)
+        self.EditProgramButton.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
+        self.DeleteProgramButton = QPushButton(self.ProgramDatabase)
+        self.DeleteProgramButton.setObjectName(u"DeleteProgramButton")
+        self.DeleteProgramButton.setEnabled(True)
+        self.DeleteProgramButton.setGeometry(QRect(130, 520, 141, 31))
+        self.DeleteProgramButton.setFont(font5)
+        self.DeleteProgramButton.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
+        self.ProgramTable = QTableWidget(self.ProgramDatabase)
+        if (self.ProgramTable.columnCount() < 2):
+            self.ProgramTable.setColumnCount(2)
+        __qtablewidgetitem6 = QTableWidgetItem()
+        self.ProgramTable.setHorizontalHeaderItem(0, __qtablewidgetitem6)
+        __qtablewidgetitem7 = QTableWidgetItem()
+        self.ProgramTable.setHorizontalHeaderItem(1, __qtablewidgetitem7)
+        self.ProgramTable.setObjectName(u"ProgramTable")
+        self.ProgramTable.setGeometry(QRect(0, 0, 961, 511))
+        self.ProgramTable.setFont(font1)
+        self.ListData.addTab(self.ProgramDatabase, "")
+        self.CollegeDatabase = QWidget()
+        self.CollegeDatabase.setObjectName(u"CollegeDatabase")
+        self.CollegeTable = QTableWidget(self.CollegeDatabase)
+        if (self.CollegeTable.columnCount() < 2):
+            self.CollegeTable.setColumnCount(2)
+        __qtablewidgetitem8 = QTableWidgetItem()
+        self.CollegeTable.setHorizontalHeaderItem(0, __qtablewidgetitem8)
+        __qtablewidgetitem9 = QTableWidgetItem()
+        self.CollegeTable.setHorizontalHeaderItem(1, __qtablewidgetitem9)
+        self.CollegeTable.setObjectName(u"CollegeTable")
+        self.CollegeTable.setGeometry(QRect(0, 0, 961, 511))
+        self.CollegeTable.setFont(font1)
+        self.EditCollegeProgram = QPushButton(self.CollegeDatabase)
+        self.EditCollegeProgram.setObjectName(u"EditCollegeProgram")
+        self.EditCollegeProgram.setEnabled(True)
+        self.EditCollegeProgram.setGeometry(QRect(0, 520, 121, 31))
+        self.EditCollegeProgram.setFont(font5)
+        self.EditCollegeProgram.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
+        self.DeleteCollegeProgram = QPushButton(self.CollegeDatabase)
+        self.DeleteCollegeProgram.setObjectName(u"DeleteCollegeProgram")
+        self.DeleteCollegeProgram.setEnabled(True)
+        self.DeleteCollegeProgram.setGeometry(QRect(130, 520, 141, 31))
+        self.DeleteCollegeProgram.setFont(font5)
+        self.DeleteCollegeProgram.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
+        self.ListData.addTab(self.CollegeDatabase, "")
         self.Heading = QFrame(MainPage)
         self.Heading.setObjectName(u"Heading")
-        self.Heading.setGeometry(QRect(0, 0, 1491, 51))
+        self.Heading.setGeometry(QRect(0, 0, 1491, 41))
         self.Heading.setFrameShape(QFrame.StyledPanel)
         self.Heading.setFrameShadow(QFrame.Raised)
         self.HeadingTitle = QLabel(self.Heading)
         self.HeadingTitle.setObjectName(u"HeadingTitle")
-        self.HeadingTitle.setGeometry(QRect(40, 10, 211, 31))
+        self.HeadingTitle.setGeometry(QRect(40, 10, 211, 21))
         self.HeadingTitle.setFont(font3)
 
         self.retranslateUi(MainPage)
+
+        self.ListData.setCurrentIndex(0)
+
 
         QMetaObject.connectSlotsByName(MainPage)
     # setupUi
@@ -362,20 +455,35 @@ class Ui_MainPage(object):
         self.SortDD.setItemText(3, QCoreApplication.translate("MainPage", u"Year Level", None))
         self.SortDD.setItemText(4, QCoreApplication.translate("MainPage", u"Program Code", None))
 
-        ___qtablewidgetitem = self.tableWidget.horizontalHeaderItem(0)
+        ___qtablewidgetitem = self.StudentTable.horizontalHeaderItem(0)
         ___qtablewidgetitem.setText(QCoreApplication.translate("MainPage", u"ID#", None));
-        ___qtablewidgetitem1 = self.tableWidget.horizontalHeaderItem(1)
+        ___qtablewidgetitem1 = self.StudentTable.horizontalHeaderItem(1)
         ___qtablewidgetitem1.setText(QCoreApplication.translate("MainPage", u"First Name", None));
-        ___qtablewidgetitem2 = self.tableWidget.horizontalHeaderItem(2)
+        ___qtablewidgetitem2 = self.StudentTable.horizontalHeaderItem(2)
         ___qtablewidgetitem2.setText(QCoreApplication.translate("MainPage", u"Last Name", None));
-        ___qtablewidgetitem3 = self.tableWidget.horizontalHeaderItem(3)
+        ___qtablewidgetitem3 = self.StudentTable.horizontalHeaderItem(3)
         ___qtablewidgetitem3.setText(QCoreApplication.translate("MainPage", u"Year Level", None));
-        ___qtablewidgetitem4 = self.tableWidget.horizontalHeaderItem(4)
+        ___qtablewidgetitem4 = self.StudentTable.horizontalHeaderItem(4)
         ___qtablewidgetitem4.setText(QCoreApplication.translate("MainPage", u"Gender", None));
-        ___qtablewidgetitem5 = self.tableWidget.horizontalHeaderItem(5)
+        ___qtablewidgetitem5 = self.StudentTable.horizontalHeaderItem(5)
         ___qtablewidgetitem5.setText(QCoreApplication.translate("MainPage", u"Program Code", None));
         self.EditStudentButton.setText(QCoreApplication.translate("MainPage", u"Edit Student", None))
         self.DeleteStudentButton.setText(QCoreApplication.translate("MainPage", u"Delete Student", None))
+        self.ListData.setTabText(self.ListData.indexOf(self.StudentDatabase), QCoreApplication.translate("MainPage", u"Student Database", None))
+        self.EditProgramButton.setText(QCoreApplication.translate("MainPage", u"Edit Program", None))
+        self.DeleteProgramButton.setText(QCoreApplication.translate("MainPage", u"Delete Program", None))
+        ___qtablewidgetitem6 = self.ProgramTable.horizontalHeaderItem(0)
+        ___qtablewidgetitem6.setText(QCoreApplication.translate("MainPage", u"New Column", None));
+        ___qtablewidgetitem7 = self.ProgramTable.horizontalHeaderItem(1)
+        ___qtablewidgetitem7.setText(QCoreApplication.translate("MainPage", u"sample2", None));
+        self.ListData.setTabText(self.ListData.indexOf(self.ProgramDatabase), QCoreApplication.translate("MainPage", u"Program Database", None))
+        ___qtablewidgetitem8 = self.CollegeTable.horizontalHeaderItem(0)
+        ___qtablewidgetitem8.setText(QCoreApplication.translate("MainPage", u"New Column", None));
+        ___qtablewidgetitem9 = self.CollegeTable.horizontalHeaderItem(1)
+        ___qtablewidgetitem9.setText(QCoreApplication.translate("MainPage", u"sample col2", None));
+        self.EditCollegeProgram.setText(QCoreApplication.translate("MainPage", u"Edit College", None))
+        self.DeleteCollegeProgram.setText(QCoreApplication.translate("MainPage", u"Delete College", None))
+        self.ListData.setTabText(self.ListData.indexOf(self.CollegeDatabase), QCoreApplication.translate("MainPage", u"College Database", None))
         self.HeadingTitle.setText(QCoreApplication.translate("MainPage", u"Student Information System", None))
     # retranslateUi
 

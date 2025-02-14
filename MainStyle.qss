@@ -57,3 +57,28 @@ QTableWidget::item:selected{
 #Heading {
 	background-color: rgb(252, 252, 252);
 }
+
+QTabWidget:pane {
+	border:0;
+}
+
+QTabBar::tab {
+	border: 1px solid #cccccc;
+	background: #e6e6e6;
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+	padding: 3px;
+	min-width: 2ex;
+}
+
+QTabBar::tab:hover {
+	background-color: #c1bfbf;
+}
+
+QTabBar::tab:selected {
+	background: #c1bfbf;
+}
+
+QTabBar::tab:!selected{
+	margin-top: 1.5px;
+}
