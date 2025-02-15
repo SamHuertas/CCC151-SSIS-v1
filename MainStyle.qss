@@ -43,10 +43,11 @@
 }
 
 QTableWidget{
-	border-radius: 15px;
 	background-color: rgb(245, 245, 245);
 	border: 1px solid rgb(235, 235, 235);
 	alternate-background-color: #e6e6e6;
+	border-bottom-left-radius: 5px;
+	border-bottom-right-radius: 5px;
 }
 
 QTableWidget::item:selected{
@@ -58,27 +59,29 @@ QTableWidget::item:selected{
 	background-color: rgb(252, 252, 252);
 }
 
-QTabWidget:pane {
-	border:0;
+QTabWidget::pane {
+    border-top: 1px solid #ddd;
 }
 
+/* QTabBar */
 QTabBar::tab {
-	border: 1px solid #cccccc;
-	background: #e6e6e6;
-	border-top-left-radius: 5px;
-	border-top-right-radius: 5px;
-	padding: 3px;
-	min-width: 2ex;
-}
-
-QTabBar::tab:hover {
-	background-color: #c1bfbf;
+    background: transparent;
+    color: #666;
+    font-size: 14px;
+    padding: 4px 15px;
+    border: none;
 }
 
 QTabBar::tab:selected {
-	background: #c1bfbf;
+    color: #007bff; /* Blue color for selected tab */
+    border-bottom: 2px solid #007bff;
 }
 
-QTabBar::tab:!selected{
-	margin-top: 1.5px;
+QTabBar::tab:hover {
+    color: #0056b3;
 }
+
+QTabBar::tab:!selected {
+    margin-bottom: 2px;
+}
+

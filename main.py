@@ -281,57 +281,8 @@ class Ui_MainPage(object):
         self.Database.setFrameShadow(QtWidgets.QFrame.Shadow.Raised)
         self.Database.setObjectName("Database")
         self.Database.setGraphicsEffect(QGraphicsDropShadowEffect(blurRadius=50, color=QColor("#afafaf")))  
-        self.SearchText = QtWidgets.QLabel(parent=self.Database)
-        self.SearchText.setGeometry(QtCore.QRect(20, 20, 81, 21))
-        font = QtGui.QFont()
-        font.setFamily("Roboto")
-        font.setPointSize(12)
-        self.SearchText.setFont(font)
-        self.SearchText.setObjectName("SearchText")
-        self.SearchDD = QtWidgets.QComboBox(parent=self.Database)
-        self.SearchDD.setGeometry(QtCore.QRect(100, 20, 101, 22))
-        font = QtGui.QFont()
-        font.setFamily("Roboto")
-        self.SearchDD.setFont(font)
-        self.SearchDD.setObjectName("SearchDD")
-        self.SearchTB = QtWidgets.QLineEdit(parent=self.Database)
-        self.SearchTB.setGeometry(QtCore.QRect(210, 20, 211, 21))
-        font = QtGui.QFont()
-        font.setFamily("Roboto")
-        font.setPointSize(12)
-        self.SearchTB.setFont(font)
-        self.SearchTB.setPlaceholderText("")
-        self.SearchTB.setObjectName("SearchTB")
-        self.SearchButton = QtWidgets.QPushButton(parent=self.Database)
-        self.SearchButton.setGeometry(QtCore.QRect(430, 20, 61, 21))
-        font = QtGui.QFont()
-        font.setFamily("Roboto")
-        font.setPointSize(12)
-        self.SearchButton.setFont(font)
-        self.SearchButton.setCursor(QtGui.QCursor(QtCore.Qt.CursorShape.PointingHandCursor))
-        self.SearchButton.setStyleSheet(Path('SearchButton.qss').read_text())
-        self.SearchButton.setObjectName("SearchButton")
-        self.SortText = QtWidgets.QLabel(parent=self.Database)
-        self.SortText.setGeometry(QtCore.QRect(810, 20, 81, 21))
-        font = QtGui.QFont()
-        font.setFamily("Roboto")
-        font.setPointSize(12)
-        self.SortText.setFont(font)
-        self.SortText.setObjectName("SortText")
-        self.SortDD = QtWidgets.QComboBox(parent=self.Database)
-        self.SortDD.setGeometry(QtCore.QRect(870, 20, 101, 22))
-        font = QtGui.QFont()
-        font.setFamily("Roboto")
-        self.SortDD.setFont(font)
-        self.SortDD.setObjectName("SortDD")
-        self.SortDD.addItem("")
-        self.SortDD.addItem("")
-        self.SortDD.addItem("")
-        self.SortDD.addItem("")
-        self.SortDD.addItem("")
-
         self.ListData = QtWidgets.QTabWidget(parent=self.Database)
-        self.ListData.setGeometry(QtCore.QRect(20, 60, 961, 581))
+        self.ListData.setGeometry(QtCore.QRect(20, 10, 961, 631))
         font = QtGui.QFont()
         font.setFamily("Roboto")
         font.setPointSize(10)
@@ -340,50 +291,65 @@ class Ui_MainPage(object):
         self.ListData.setTabShape(QtWidgets.QTabWidget.TabShape.Rounded)
         self.ListData.setElideMode(QtCore.Qt.TextElideMode.ElideNone)
         self.ListData.setObjectName("ListData")
+
+        ##-------------------------------START OF STUDENT TAB-------------------------------
         self.StudentDatabase = QtWidgets.QWidget()
         self.StudentDatabase.setObjectName("StudentDatabase")
         self.StudentTable = QtWidgets.QTableWidget(parent=self.StudentDatabase)
-        self.StudentTable.setGeometry(QtCore.QRect(0, 0, 961, 511))
+        self.StudentTable.setGeometry(QtCore.QRect(0, 60, 961, 501))
         font = QtGui.QFont()
         font.setFamily("Roboto")
         self.StudentTable.setFont(font)
         self.StudentTable.setAutoFillBackground(False)
         self.StudentTable.setObjectName("StudentTable")
-        self.StudentTable.setColumnCount(6)
-        self.StudentTable.setRowCount(0)
-        item = QtWidgets.QTableWidgetItem()
+
+        self.StudentSearchText = QtWidgets.QLabel(parent=self.StudentDatabase)
+        self.StudentSearchText.setGeometry(QtCore.QRect(0, 20, 81, 21))
         font = QtGui.QFont()
         font.setFamily("Roboto")
-        item.setFont(font)
-        self.StudentTable.setHorizontalHeaderItem(0, item)
-        item = QtWidgets.QTableWidgetItem()
+        font.setPointSize(12)
+        self.StudentSearchText.setFont(font)
+        self.StudentSearchText.setObjectName("StudentSearchText")
+        self.StudentSearchDD = QtWidgets.QComboBox(parent=self.StudentDatabase)
+        self.StudentSearchDD.setGeometry(QtCore.QRect(80, 20, 111, 22))
         font = QtGui.QFont()
         font.setFamily("Roboto")
-        item.setFont(font)
-        self.StudentTable.setHorizontalHeaderItem(1, item)
-        item = QtWidgets.QTableWidgetItem()
+        self.StudentSearchDD.setFont(font)
+        self.StudentSearchDD.setObjectName("StudentSearchDD")
+        self.StudentSearchTB = QtWidgets.QLineEdit(parent=self.StudentDatabase)
+        self.StudentSearchTB.setGeometry(QtCore.QRect(200, 20, 211, 21))
         font = QtGui.QFont()
         font.setFamily("Roboto")
-        item.setFont(font)
-        self.StudentTable.setHorizontalHeaderItem(2, item)
-        item = QtWidgets.QTableWidgetItem()
+        font.setPointSize(12)
+        self.StudentSearchTB.setFont(font)
+        self.StudentSearchTB.setPlaceholderText("")
+        self.StudentSearchTB.setObjectName("StudentSearchTB")
+        self.StudentSearchButton = QtWidgets.QPushButton(parent=self.StudentDatabase)
+        self.StudentSearchButton.setGeometry(QtCore.QRect(420, 20, 61, 21))
         font = QtGui.QFont()
         font.setFamily("Roboto")
-        item.setFont(font)
-        self.StudentTable.setHorizontalHeaderItem(3, item)
-        item = QtWidgets.QTableWidgetItem()
+        font.setPointSize(12)
+        self.StudentSearchButton.setFont(font)
+        self.StudentSearchButton.setCursor(QtGui.QCursor(QtCore.Qt.CursorShape.PointingHandCursor))
+        self.StudentSearchButton.setStyleSheet(Path('SearchButton.qss').read_text())
+        self.StudentSearchButton.setObjectName("StudentSearchButton")
+        self.StudentSortText = QtWidgets.QLabel(parent=self.StudentDatabase)
+        self.StudentSortText.setGeometry(QtCore.QRect(790, 20, 81, 21))
         font = QtGui.QFont()
         font.setFamily("Roboto")
-        item.setFont(font)
-        self.StudentTable.setHorizontalHeaderItem(4, item)
-        item = QtWidgets.QTableWidgetItem()
+        font.setPointSize(12)
+        self.StudentSortText.setFont(font)
+        self.StudentSortText.setObjectName("StudentSortText")
+        self.StudentSortDD = QtWidgets.QComboBox(parent=self.StudentDatabase)
+        self.StudentSortDD.setGeometry(QtCore.QRect(850, 20, 111, 22))
         font = QtGui.QFont()
         font.setFamily("Roboto")
-        item.setFont(font)
-        self.StudentTable.setHorizontalHeaderItem(5, item)
+        self.StudentSortDD.setFont(font)
+        self.StudentSortDD.setObjectName("StudentSortDD")
+        self.StudentSortDD.addItems(["", "ID #", "First Name", "Last Name", "Year Level", "Gender", "Program Code"])
         self.EditStudentButton = QtWidgets.QPushButton(parent=self.StudentDatabase)
         self.EditStudentButton.setEnabled(True)
-        self.EditStudentButton.setGeometry(QtCore.QRect(0, 520, 121, 31))
+        self.EditStudentButton.setGeometry(QtCore.QRect(0, 570, 121, 31))
         font = QtGui.QFont()
         font.setFamily("Roboto")
         font.setPointSize(14)
@@ -392,7 +358,7 @@ class Ui_MainPage(object):
         self.EditStudentButton.setObjectName("EditStudentButton")
         self.DeleteStudentButton = QtWidgets.QPushButton(parent=self.StudentDatabase)
         self.DeleteStudentButton.setEnabled(True)
-        self.DeleteStudentButton.setGeometry(QtCore.QRect(130, 520, 141, 31))
+        self.DeleteStudentButton.setGeometry(QtCore.QRect(130, 570, 141, 31))
         font = QtGui.QFont()
         font.setFamily("Roboto")
         font.setPointSize(14)
@@ -400,11 +366,59 @@ class Ui_MainPage(object):
         self.DeleteStudentButton.setCursor(QtGui.QCursor(QtCore.Qt.CursorShape.PointingHandCursor))
         self.DeleteStudentButton.setObjectName("DeleteStudentButton")
         self.ListData.addTab(self.StudentDatabase, "")
+        ##-------------------------------END OF STUDENT TAB-------------------------------
+
+        ##-------------------------------START OF PROGRAM TAB-------------------------------
         self.ProgramDatabase = QtWidgets.QWidget()
         self.ProgramDatabase.setObjectName("ProgramDatabase")
+        self.ProgramSearchText = QtWidgets.QLabel(parent=self.ProgramDatabase)
+        self.ProgramSearchText.setGeometry(QtCore.QRect(0, 20, 81, 21))
+        font = QtGui.QFont()
+        font.setFamily("Roboto")
+        font.setPointSize(12)
+        self.ProgramSearchText.setFont(font)
+        self.ProgramSearchText.setObjectName("ProgramSearchText")
+        self.ProgramSearchDD = QtWidgets.QComboBox(parent=self.ProgramDatabase)
+        self.ProgramSearchDD.setGeometry(QtCore.QRect(80, 20, 111, 22))
+        font = QtGui.QFont()
+        font.setFamily("Roboto")
+        self.ProgramSearchDD.setFont(font)
+        self.ProgramSearchDD.setObjectName("ProgramSearchDD")
+        self.ProgramSearchTB = QtWidgets.QLineEdit(parent=self.ProgramDatabase)
+        self.ProgramSearchTB.setGeometry(QtCore.QRect(200, 20, 211, 21))
+        font = QtGui.QFont()
+        font.setFamily("Roboto")
+        font.setPointSize(12)
+        self.ProgramSearchTB.setFont(font)
+        self.ProgramSearchTB.setPlaceholderText("")
+        self.ProgramSearchTB.setObjectName("ProgramSearchTB")
+        self.ProgramSearchButton = QtWidgets.QPushButton(parent=self.ProgramDatabase)
+        self.ProgramSearchButton.setGeometry(QtCore.QRect(420, 20, 61, 21))
+        font = QtGui.QFont()
+        font.setFamily("Roboto")
+        font.setPointSize(12)
+        self.ProgramSearchButton.setFont(font)
+        self.ProgramSearchButton.setCursor(QtGui.QCursor(QtCore.Qt.CursorShape.PointingHandCursor))
+        self.ProgramSearchButton.setStyleSheet(Path('SearchButton.qss').read_text())
+        self.ProgramSearchButton.setObjectName("ProgramSearchButton")
+        self.ProgramSortText = QtWidgets.QLabel(parent=self.ProgramDatabase)
+        self.ProgramSortText.setGeometry(QtCore.QRect(790, 20, 81, 21))
+        font = QtGui.QFont()
+        font.setFamily("Roboto")
+        font.setPointSize(12)
+        self.ProgramSortText.setFont(font)
+        self.ProgramSortText.setObjectName("ProgramSortText")
+        self.ProgramSortDD = QtWidgets.QComboBox(parent=self.ProgramDatabase)
+        self.ProgramSortDD.setGeometry(QtCore.QRect(850, 20, 111, 22))
+        font = QtGui.QFont()
+        font.setFamily("Roboto")
+        self.ProgramSortDD.setFont(font)
+        self.ProgramSortDD.setObjectName("ProgramSortDD")
+        self.ProgramSortDD.addItems(["", "Program Code", "Program Name", "College Code"])
+
         self.EditProgramButton = QtWidgets.QPushButton(parent=self.ProgramDatabase)
         self.EditProgramButton.setEnabled(True)
-        self.EditProgramButton.setGeometry(QtCore.QRect(0, 520, 121, 31))
+        self.EditProgramButton.setGeometry(QtCore.QRect(0, 570, 121, 31))
         font = QtGui.QFont()
         font.setFamily("Roboto")
         font.setPointSize(14)
@@ -413,7 +427,7 @@ class Ui_MainPage(object):
         self.EditProgramButton.setObjectName("EditProgramButton")
         self.DeleteProgramButton = QtWidgets.QPushButton(parent=self.ProgramDatabase)
         self.DeleteProgramButton.setEnabled(True)
-        self.DeleteProgramButton.setGeometry(QtCore.QRect(130, 520, 141, 31))
+        self.DeleteProgramButton.setGeometry(QtCore.QRect(130, 570, 141, 31))
         font = QtGui.QFont()
         font.setFamily("Roboto")
         font.setPointSize(14)
@@ -421,35 +435,74 @@ class Ui_MainPage(object):
         self.DeleteProgramButton.setCursor(QtGui.QCursor(QtCore.Qt.CursorShape.PointingHandCursor))
         self.DeleteProgramButton.setObjectName("DeleteProgramButton")
         self.ProgramTable = QtWidgets.QTableWidget(parent=self.ProgramDatabase)
-        self.ProgramTable.setGeometry(QtCore.QRect(0, 0, 961, 511))
+        self.ProgramTable.setGeometry(QtCore.QRect(0, 60, 961, 501))
         font = QtGui.QFont()
         font.setFamily("Roboto")
         self.ProgramTable.setFont(font)
         self.ProgramTable.setObjectName("ProgramTable")
         self.ProgramTable.setColumnCount(2)
         self.ProgramTable.setRowCount(0)
-        item = QtWidgets.QTableWidgetItem()
-        self.ProgramTable.setHorizontalHeaderItem(0, item)
-        item = QtWidgets.QTableWidgetItem()
-        self.ProgramTable.setHorizontalHeaderItem(1, item)
         self.ListData.addTab(self.ProgramDatabase, "")
+        ##-------------------------------END OF PROGRAM TAB-------------------------------
+
+        ##-------------------------------START OF COLLEGE TAB-------------------------------
         self.CollegeDatabase = QtWidgets.QWidget()
         self.CollegeDatabase.setObjectName("CollegeDatabase")
         self.CollegeTable = QtWidgets.QTableWidget(parent=self.CollegeDatabase)
-        self.CollegeTable.setGeometry(QtCore.QRect(0, 0, 961, 511))
+        self.CollegeTable.setGeometry(QtCore.QRect(0, 60, 961, 501))
         font = QtGui.QFont()
         font.setFamily("Roboto")
         self.CollegeTable.setFont(font)
         self.CollegeTable.setObjectName("CollegeTable")
-        self.CollegeTable.setColumnCount(2)
-        self.CollegeTable.setRowCount(0)
-        item = QtWidgets.QTableWidgetItem()
-        self.CollegeTable.setHorizontalHeaderItem(0, item)
-        item = QtWidgets.QTableWidgetItem()
-        self.CollegeTable.setHorizontalHeaderItem(1, item)
+
+        self.CollegeSearchText = QtWidgets.QLabel(parent=self.CollegeDatabase)
+        self.CollegeSearchText.setGeometry(QtCore.QRect(0, 20, 81, 21))
+        font = QtGui.QFont()
+        font.setFamily("Roboto")
+        font.setPointSize(12)
+        self.CollegeSearchText.setFont(font)
+        self.CollegeSearchText.setObjectName("CollegeSearchText")
+        self.CollegeSearchDD = QtWidgets.QComboBox(parent=self.CollegeDatabase)
+        self.CollegeSearchDD.setGeometry(QtCore.QRect(80, 20, 111, 22))
+        font = QtGui.QFont()
+        font.setFamily("Roboto")
+        self.CollegeSearchDD.setFont(font)
+        self.CollegeSearchDD.setObjectName("CollegeSearchDD")
+        self.CollegeSearchTB = QtWidgets.QLineEdit(parent=self.CollegeDatabase)
+        self.CollegeSearchTB.setGeometry(QtCore.QRect(200, 20, 211, 21))
+        font = QtGui.QFont()
+        font.setFamily("Roboto")
+        font.setPointSize(12)
+        self.CollegeSearchTB.setFont(font)
+        self.CollegeSearchTB.setPlaceholderText("")
+        self.CollegeSearchTB.setObjectName("CollegeSearchTB")
+        self.CollegeSearchButton = QtWidgets.QPushButton(parent=self.CollegeDatabase)
+        self.CollegeSearchButton.setGeometry(QtCore.QRect(420, 20, 61, 21))
+        font = QtGui.QFont()
+        font.setFamily("Roboto")
+        font.setPointSize(12)
+        self.CollegeSearchButton.setFont(font)
+        self.CollegeSearchButton.setCursor(QtGui.QCursor(QtCore.Qt.CursorShape.PointingHandCursor))
+        self.CollegeSearchButton.setStyleSheet(Path('SearchButton.qss').read_text())
+        self.CollegeSearchButton.setObjectName("CollegeSearchButton")
+        self.CollegeSortText = QtWidgets.QLabel(parent=self.CollegeDatabase)
+        self.CollegeSortText.setGeometry(QtCore.QRect(790, 20, 81, 21))
+        font = QtGui.QFont()
+        font.setFamily("Roboto")
+        font.setPointSize(12)
+        self.CollegeSortText.setFont(font)
+        self.CollegeSortText.setObjectName("CollegeSortText")
+        self.CollegeSortDD = QtWidgets.QComboBox(parent=self.CollegeDatabase)
+        self.CollegeSortDD.setGeometry(QtCore.QRect(850, 20, 111, 22))
+        font = QtGui.QFont()
+        font.setFamily("Roboto")
+        self.CollegeSortDD.setFont(font)
+        self.CollegeSortDD.setObjectName("CollegeSortDD")
+        self.CollegeSortDD.addItems(["","College Code", "College Name"])
+
         self.EditCollegeProgram = QtWidgets.QPushButton(parent=self.CollegeDatabase)
         self.EditCollegeProgram.setEnabled(True)
-        self.EditCollegeProgram.setGeometry(QtCore.QRect(0, 520, 121, 31))
+        self.EditCollegeProgram.setGeometry(QtCore.QRect(0, 570, 121, 31))
         font = QtGui.QFont()
         font.setFamily("Roboto")
         font.setPointSize(14)
@@ -458,7 +511,7 @@ class Ui_MainPage(object):
         self.EditCollegeProgram.setObjectName("EditCollegeProgram")
         self.DeleteCollegeProgram = QtWidgets.QPushButton(parent=self.CollegeDatabase)
         self.DeleteCollegeProgram.setEnabled(True)
-        self.DeleteCollegeProgram.setGeometry(QtCore.QRect(130, 520, 141, 31))
+        self.DeleteCollegeProgram.setGeometry(QtCore.QRect(130, 570, 141, 31))
         font = QtGui.QFont()
         font.setFamily("Roboto")
         font.setPointSize(14)
@@ -466,6 +519,7 @@ class Ui_MainPage(object):
         self.DeleteCollegeProgram.setCursor(QtGui.QCursor(QtCore.Qt.CursorShape.PointingHandCursor))
         self.DeleteCollegeProgram.setObjectName("DeleteCollegeProgram")
         self.ListData.addTab(self.CollegeDatabase, "")
+        ##-------------------------------END OF COLLEGE TAB-------------------------------
         ##-------------------------------------END OF DATABASE PANEL-------------------------------------
 
         self.Heading = QtWidgets.QFrame(parent=MainPage)
@@ -508,14 +562,16 @@ class Ui_MainPage(object):
         self.CNameText.setText(_translate("MainPage", "College Name"))
         self.CNameTB.setPlaceholderText(_translate("MainPage", "ex. College of Computer Studies"))
         self.AddCollegeButton.setText(_translate("MainPage", "Add College"))
-        self.SearchText.setText(_translate("MainPage", "Search by:"))
-        self.SearchButton.setText(_translate("MainPage", "Search"))
-        self.SortText.setText(_translate("MainPage", "Sort by:"))
-        self.SortDD.setItemText(0, _translate("MainPage", "ID#"))
-        self.SortDD.setItemText(1, _translate("MainPage", "First Name"))
-        self.SortDD.setItemText(2, _translate("MainPage", "Last Name"))
-        self.SortDD.setItemText(3, _translate("MainPage", "Year Level"))
-        self.SortDD.setItemText(4, _translate("MainPage", "Program Code"))
+
+        self.StudentSearchText.setText(_translate("MainPage", "Search by:"))
+        self.StudentSearchButton.setText(_translate("MainPage", "Search"))
+        self.StudentSortText.setText(_translate("MainPage", "Sort by:"))
+        self.ProgramSearchText.setText(_translate("MainPage", "Search by:"))
+        self.ProgramSearchButton.setText(_translate("MainPage", "Search"))
+        self.ProgramSortText.setText(_translate("MainPage", "Sort by:"))
+        self.CollegeSearchText.setText(_translate("MainPage", "Search by:"))
+        self.CollegeSearchButton.setText(_translate("MainPage", "Search"))
+        self.CollegeSortText.setText(_translate("MainPage", "Sort by:"))
 
         self.EditStudentButton.setText(_translate("MainPage", "Edit Student"))
         self.DeleteStudentButton.setText(_translate("MainPage", "Delete Student"))
@@ -541,6 +597,8 @@ class MainWindow(QMainWindow):
 
         self.setupValidators()
         self.openStudentCSV()
+        self.openProgramCSV()
+        self.openCollegeCSV()
         self.TableFormat()
         self.AddStudentButtonState()
         self.AddCollegeButtonState()
@@ -567,6 +625,10 @@ class MainWindow(QMainWindow):
         self.ui.PNameTB.textChanged.connect(self.AddProgramButtonState)
         self.ui.PCollCodeDD.currentTextChanged.connect(self.AddProgramButtonState)
 
+        self.ui.StudentSortDD.currentTextChanged.connect(self.sort_student_table)
+        self.ui.ProgramSortDD.currentTextChanged.connect(self.sort_program_table)
+        self.ui.CollegeSortDD.currentTextChanged.connect(self.sort_college_table)
+
     def remove_empty_item(self):
         combo = self.sender() 
         if combo.itemText(0) == "":
@@ -587,6 +649,37 @@ class MainWindow(QMainWindow):
                             item = QtWidgets.QTableWidgetItem(cell)
                             self.ui.StudentTable.setItem(row_idx, col_idx, item)
 
+    def openProgramCSV(self):
+        with open("Program.csv", "r") as ProgramData:
+            reader = csv.reader(ProgramData)
+            data = list(reader)
+
+            if data:
+                self.ui.ProgramTable.setRowCount(len(data) - 1)
+                self.ui.ProgramTable.setColumnCount(len(data[0]))
+                self.ui.ProgramTable.setHorizontalHeaderLabels(data[0])
+
+                for row_idx, row in enumerate(data[1:]):
+                    for col_idx, cell in enumerate(row):
+                        item = QtWidgets.QTableWidgetItem(cell)
+                        self.ui.ProgramTable.setItem(row_idx, col_idx, item)
+
+    def openCollegeCSV(self):
+        with open("College.csv", "r") as CollegeData:
+            reader = csv.reader(CollegeData)
+            data = list(reader)
+
+            if data:
+                self.ui.CollegeTable.setRowCount(len(data) - 1)
+                self.ui.CollegeTable.setColumnCount(len(data[0]))
+                self.ui.CollegeTable.setHorizontalHeaderLabels(data[0])
+
+                for row_idx, row in enumerate(data[1:]):
+                    for col_idx, cell in enumerate(row):
+                        item = QtWidgets.QTableWidgetItem(cell)
+                        self.ui.CollegeTable.setItem(row_idx, col_idx, item)
+
+
     def TableFormat(self):
         self.ui.StudentTable.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
         self.ui.StudentTable.horizontalHeader().setHighlightSections(False)
@@ -600,6 +693,20 @@ class MainWindow(QMainWindow):
         self.ui.StudentTable.setColumnWidth(4, 100)
         self.ui.StudentTable.setColumnWidth(5, 151)
         self.ui.StudentTable.setAlternatingRowColors(True)
+
+        self.ui.ProgramTable.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
+        self.ui.ProgramTable.horizontalHeader().setHighlightSections(False)
+        self.ui.ProgramTable.verticalHeader().setHighlightSections(False)
+        self.ui.ProgramTable.setSelectionMode(QtWidgets.QAbstractItemView.SelectionMode.SingleSelection)
+        self.ui.ProgramTable.setSelectionBehavior(QtWidgets.QAbstractItemView.SelectionBehavior.SelectRows)
+        self.ui.ProgramTable.setAlternatingRowColors(True)
+
+        self.ui.CollegeTable.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
+        self.ui.CollegeTable.horizontalHeader().setHighlightSections(False)
+        self.ui.CollegeTable.verticalHeader().setHighlightSections(False)
+        self.ui.CollegeTable.setSelectionMode(QtWidgets.QAbstractItemView.SelectionMode.SingleSelection)
+        self.ui.CollegeTable.setSelectionBehavior(QtWidgets.QAbstractItemView.SelectionBehavior.SelectRows)
+        self.ui.CollegeTable.setAlternatingRowColors(True)
     
     def AddStudentButtonState(self):
         student_id = self.ui.IDTB.text()
@@ -638,8 +745,8 @@ class MainWindow(QMainWindow):
                 self.ui.IDTB.text(),
                 self.ui.FNameTB.text().title(),
                 self.ui.LNameTB.text().title(),
-                self.ui.GenderDD.currentText(),
                 self.ui.YLevelDD.currentText(),
+                self.ui.GenderDD.currentText(),
                 self.ui.PCodeDD.currentText()
             ])
         self.ui.IDTB.clear()
@@ -650,6 +757,8 @@ class MainWindow(QMainWindow):
         self.ui.PCodeDD.setCurrentIndex(0)
         self.ui.AddStudentButton.setDisabled(True)
         self.openStudentCSV()
+        self.sort_student_table()
+
     def AddCollegeUpdateTable(self):
         with open("College.csv", "a", newline='') as InputCollegeData:
             writer = csv.writer(InputCollegeData)
@@ -660,7 +769,9 @@ class MainWindow(QMainWindow):
             self.ui.CCodeTB.clear()
             self.ui.CNameTB.clear()
             self.ui.AddCollegeButton.setDisabled(True)
+        self.openCollegeCSV()
         self.PopulateCollegeCode()   
+
     def AddProgramUpdateTable(self):
         with open("Program.csv", "a", newline='') as InputProgramData:
             writer = csv.writer(InputProgramData)
@@ -673,73 +784,132 @@ class MainWindow(QMainWindow):
             self.ui.PNameTB.clear()
             self.ui.PCollCodeDD.setCurrentIndex(0)
             self.ui.AddProgramButton.setDisabled(True)
+        self.openProgramCSV()
         self.PopulateProgramCode()
 
     def PopulateCollegeCode(self):
-        self.SortCollegebyCode()
-        self.ui.PCollCodeDD.clear()
-        self.ui.PCollCodeDD.addItem("")  
-        with open("College.csv", "r") as CollegeCode:
-            reader = csv.reader(CollegeCode)
-            data = list(reader) 
-
-            if len(data) <= 1:
-                return 
-
-            header = data[0]
-            college_code_idx = header.index("College Code")
-
-            for row in data[1:]: 
-                if len(row) > college_code_idx: 
-                    collegecode_data = row[college_code_idx]
-                    self.ui.PCollCodeDD.addItem(collegecode_data)
-    def PopulateProgramCode(self):
-        self.SortProgrambyCode()
-        self.ui.PCodeDD.clear()
-        self.ui.PCodeDD.addItem("")
-        with open("Program.csv", "r") as ProgramCode:
-            reader = csv.reader(ProgramCode)
-            data = list(reader)
-
-            if len(data) <= 1:
-                return
-
-            header = data[0]
-            program_code_idx = header.index("Program Code")
-
-            for row in data[1:]:
-                if len(row) > program_code_idx:
-                    programcode_data = row[program_code_idx]
-                    self.ui.PCodeDD.addItem(programcode_data)
-
-    def SortCollegebyCode(self):
         with open("College.csv", "r", newline='') as file:
             reader = list(csv.reader(file))
-            header = reader[0]
-            rows = reader[1:]
+            header = reader[0] 
+            rows = reader[1:] 
+
             ccode_idx = header.index("College Code")
-            rows.sort(key=lambda row: row[ccode_idx] if len(row) > ccode_idx else "")
 
-        with open("College.csv", "w", newline='') as writefile:
-            writer = csv.writer(writefile)
-            writer.writerow(header)
-            writer.writerows(rows)
- 
-    def SortProgrambyCode(self):
-        with open("Program.csv", "r", newline='') as file:
-          reader = list(csv.reader(file))
-          header = reader[0]
-          rows = reader[1:]
+            college_codes = [row[ccode_idx] for row in rows if len(row) > ccode_idx]
 
-          pcode_idx = header.index("Program Code")
-          rows.sort(key=lambda row: row[pcode_idx] if len(row) > pcode_idx else "")
+            college_codes.sort()
 
-          with open("Program.csv", "w", newline='') as writefile:
-               writer = csv.writer(writefile)
-               writer.writerow(header)
-               writer.writerows(rows)
- 
-    
+            self.ui.PCollCodeDD.clear()
+            self.ui.PCollCodeDD.addItem("")
+            self.ui.PCollCodeDD.addItems(college_codes)
+
+    def PopulateProgramCode(self):
+        with open("Program.csv", "r") as ProgramCode:
+            reader = list(csv.reader(ProgramCode))
+            header = reader[0] 
+            rows = reader[1:] 
+
+            pcode_idx = header.index("Program Code")
+            program_college_codes = [row[pcode_idx] for row in rows if len(row) > pcode_idx]
+
+            program_college_codes.sort()
+
+            self.ui.PCodeDD.clear()
+            self.ui.PCodeDD.addItem("")
+            self.ui.PCodeDD.addItems(program_college_codes)
+
+    def sort_student_table(self):
+        sort_by = self.ui.StudentSortDD.currentText()
+
+        sort_options = {
+        "ID #": 0,
+        "First Name": 1,
+        "Last Name": 2,
+        "Gender": 3,
+        "Year Level": 4,
+        "Program Code": 5
+        }   
+
+        column_index = sort_options.get(sort_by, 0)
+
+        rows = []
+        for row in range(self.ui.StudentTable.rowCount()):
+            row_data = []
+            for col in range(self.ui.StudentTable.columnCount()):
+                item = self.ui.StudentTable.item(row, col)
+                row_data.append(item.text() if item else "")
+            rows.append(row_data)
+
+        rows.sort(key=lambda x: x[column_index])
+
+        self.ui.StudentTable.setRowCount(0)
+
+        for row_data in rows:
+            row_position = self.ui.StudentTable.rowCount()
+            self.ui.StudentTable.insertRow(row_position)
+            for col, data in enumerate(row_data):
+                item = QtWidgets.QTableWidgetItem(data)
+                self.ui.StudentTable.setItem(row_position, col, item)
+
+    def sort_program_table(self):
+        sort_by = self.ui.ProgramSortDD.currentText()
+
+        sort_options = {
+        "Program Code": 0,
+        "Program Name": 1,
+        "College Code": 2,
+        }   
+
+        column_index = sort_options.get(sort_by, 0)
+
+        rows = []
+        for row in range(self.ui.ProgramTable.rowCount()):
+            row_data = []
+            for col in range(self.ui.ProgramTable.columnCount()):
+                item = self.ui.ProgramTable.item(row, col)
+                row_data.append(item.text() if item else "")
+            rows.append(row_data)
+
+        rows.sort(key=lambda x: x[column_index])
+
+        self.ui.ProgramTable.setRowCount(0)
+
+        for row_data in rows:
+            row_position = self.ui.ProgramTable.rowCount()
+            self.ui.ProgramTable.insertRow(row_position)
+            for col, data in enumerate(row_data):
+                item = QtWidgets.QTableWidgetItem(data)
+                self.ui.ProgramTable.setItem(row_position, col, item)
+
+    def sort_college_table(self):
+        sort_by = self.ui.CollegeSortDD.currentText()
+
+        sort_options = {
+        "College Code": 0,
+        "College Name": 1,
+        }   
+
+        column_index = sort_options.get(sort_by, 0)
+
+        rows = []
+        for row in range(self.ui.CollegeTable.rowCount()):
+            row_data = []
+            for col in range(self.ui.CollegeTable.columnCount()):
+                item = self.ui.CollegeTable.item(row, col)
+                row_data.append(item.text() if item else "")
+            rows.append(row_data)
+
+        rows.sort(key=lambda x: x[column_index])
+
+        self.ui.CollegeTable.setRowCount(0)
+
+        for row_data in rows:
+            row_position = self.ui.CollegeTable.rowCount()
+            self.ui.CollegeTable.insertRow(row_position)
+            for col, data in enumerate(row_data):
+                item = QtWidgets.QTableWidgetItem(data)
+                self.ui.CollegeTable.setItem(row_position, col, item)
+
     def setupValidators(self):
         code_validator = QRegularExpressionValidator(QRegularExpression("[A-Za-z]+"))
         self.ui.CCodeTB.setValidator(code_validator)

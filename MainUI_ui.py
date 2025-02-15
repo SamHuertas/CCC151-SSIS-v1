@@ -80,30 +80,30 @@ class Ui_MainPage(object):
 "	background-color: rgb(252, 252, 252);\n"
 "}\n"
 "\n"
-"QTabWidget:pane {\n"
-"	border:0;\n"
+"QTabWidget::pane {\n"
+"    border-top: 1px solid #ddd;\n"
 "}\n"
 "\n"
+"/* QTabBar */\n"
 "QTabBar::tab {\n"
-"    border: 1px solid #cccccc;\n"
-"	background: #e6e6e6;\n"
-"    border-top-left-radius: 5px;\n"
-"    border-top-right-radius: 5px;\n"
-"	padding: 3px;\n"
-"    min-width: 2ex;\n"
+"    background: transparent;\n"
+"    color: #666;\n"
+"    font-size: 14px;\n"
+"    padding: 4px 15px;\n"
+"    border: none;\n"
+"}\n"
+"\n"
+"QTabBar::tab:selected {\n"
+"    color: #007bff; /* Blue color for selected tab */\n"
+"    border-bottom: 2px solid #007bff;\n"
 "}\n"
 "\n"
 "QTabBar::tab:hover {\n"
-"	background-color: #c1bfbf;\n"
-"	\n"
-" }\n"
-"\n"
-"QTabBar::tab:selected {\n"
-"    background: #c1bfbf;\n"
+"    color: #0056b3;\n"
 "}\n"
 "\n"
-"QTabBar::tab:!selected{\n"
-"	margin-top: 1.5px;\n"
+"QTabBar::tab:!selected {\n"
+"    margin-bottom: 2px;\n"
 "}")
         self.AddStudent = QFrame(MainPage)
         self.AddStudent.setObjectName(u"AddStudent")
@@ -260,49 +260,9 @@ class Ui_MainPage(object):
         self.Database.setFont(font1)
         self.Database.setFrameShape(QFrame.StyledPanel)
         self.Database.setFrameShadow(QFrame.Raised)
-        self.SearchText = QLabel(self.Database)
-        self.SearchText.setObjectName(u"SearchText")
-        self.SearchText.setGeometry(QRect(20, 20, 81, 21))
-        self.SearchText.setFont(font3)
-        self.SearchDD = QComboBox(self.Database)
-        self.SearchDD.setObjectName(u"SearchDD")
-        self.SearchDD.setGeometry(QRect(100, 20, 101, 22))
-        self.SearchDD.setFont(font1)
-        self.SearchTB = QLineEdit(self.Database)
-        self.SearchTB.setObjectName(u"SearchTB")
-        self.SearchTB.setGeometry(QRect(210, 20, 211, 21))
-        self.SearchTB.setFont(font3)
-        self.SearchButton = QPushButton(self.Database)
-        self.SearchButton.setObjectName(u"SearchButton")
-        self.SearchButton.setGeometry(QRect(430, 20, 61, 21))
-        self.SearchButton.setFont(font3)
-        self.SearchButton.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
-        self.SearchButton.setStyleSheet(u"#SearchButton\n"
-"{	\n"
-"	background-color: #1e88e5;\n"
-"	border-radius: 2px;\n"
-"	box-shadow: 10px 9px 7px 1px rgba(0,0,0,0.83);\n"
-"	color: white;\n"
-"}\n"
-"#SearchButton:pressed {\n"
-"	border: 3px solid rgb(152, 205, 229);\n"
-"}")
-        self.SortText = QLabel(self.Database)
-        self.SortText.setObjectName(u"SortText")
-        self.SortText.setGeometry(QRect(810, 20, 81, 21))
-        self.SortText.setFont(font3)
-        self.SortDD = QComboBox(self.Database)
-        self.SortDD.addItem("")
-        self.SortDD.addItem("")
-        self.SortDD.addItem("")
-        self.SortDD.addItem("")
-        self.SortDD.addItem("")
-        self.SortDD.setObjectName(u"SortDD")
-        self.SortDD.setGeometry(QRect(870, 20, 101, 22))
-        self.SortDD.setFont(font1)
         self.ListData = QTabWidget(self.Database)
         self.ListData.setObjectName(u"ListData")
-        self.ListData.setGeometry(QRect(20, 60, 961, 581))
+        self.ListData.setGeometry(QRect(20, 10, 961, 631))
         self.ListData.setFont(font4)
         self.ListData.setCursor(QCursor(Qt.CursorShape.ArrowCursor))
         self.ListData.setTabPosition(QTabWidget.North)
@@ -332,21 +292,61 @@ class Ui_MainPage(object):
         __qtablewidgetitem5.setFont(font1);
         self.StudentTable.setHorizontalHeaderItem(5, __qtablewidgetitem5)
         self.StudentTable.setObjectName(u"StudentTable")
-        self.StudentTable.setGeometry(QRect(0, 0, 961, 511))
+        self.StudentTable.setGeometry(QRect(0, 60, 961, 501))
         self.StudentTable.setFont(font1)
         self.StudentTable.setAutoFillBackground(False)
         self.EditStudentButton = QPushButton(self.StudentDatabase)
         self.EditStudentButton.setObjectName(u"EditStudentButton")
         self.EditStudentButton.setEnabled(True)
-        self.EditStudentButton.setGeometry(QRect(0, 520, 121, 31))
+        self.EditStudentButton.setGeometry(QRect(0, 570, 121, 31))
         self.EditStudentButton.setFont(font5)
         self.EditStudentButton.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
         self.DeleteStudentButton = QPushButton(self.StudentDatabase)
         self.DeleteStudentButton.setObjectName(u"DeleteStudentButton")
         self.DeleteStudentButton.setEnabled(True)
-        self.DeleteStudentButton.setGeometry(QRect(130, 520, 141, 31))
+        self.DeleteStudentButton.setGeometry(QRect(130, 570, 141, 31))
         self.DeleteStudentButton.setFont(font5)
         self.DeleteStudentButton.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
+        self.SortDD = QComboBox(self.StudentDatabase)
+        self.SortDD.addItem("")
+        self.SortDD.addItem("")
+        self.SortDD.addItem("")
+        self.SortDD.addItem("")
+        self.SortDD.addItem("")
+        self.SortDD.setObjectName(u"SortDD")
+        self.SortDD.setGeometry(QRect(850, 20, 111, 22))
+        self.SortDD.setFont(font1)
+        self.SearchButton = QPushButton(self.StudentDatabase)
+        self.SearchButton.setObjectName(u"SearchButton")
+        self.SearchButton.setGeometry(QRect(420, 20, 61, 21))
+        self.SearchButton.setFont(font3)
+        self.SearchButton.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
+        self.SearchButton.setStyleSheet(u"#SearchButton\n"
+"{	\n"
+"	background-color: #1e88e5;\n"
+"	border-radius: 2px;\n"
+"	box-shadow: 10px 9px 7px 1px rgba(0,0,0,0.83);\n"
+"	color: white;\n"
+"}\n"
+"#SearchButton:pressed {\n"
+"	border: 3px solid rgb(152, 205, 229);\n"
+"}")
+        self.SearchText = QLabel(self.StudentDatabase)
+        self.SearchText.setObjectName(u"SearchText")
+        self.SearchText.setGeometry(QRect(0, 20, 81, 21))
+        self.SearchText.setFont(font3)
+        self.SearchTB = QLineEdit(self.StudentDatabase)
+        self.SearchTB.setObjectName(u"SearchTB")
+        self.SearchTB.setGeometry(QRect(200, 20, 211, 21))
+        self.SearchTB.setFont(font3)
+        self.SortText = QLabel(self.StudentDatabase)
+        self.SortText.setObjectName(u"SortText")
+        self.SortText.setGeometry(QRect(790, 20, 81, 21))
+        self.SortText.setFont(font3)
+        self.SearchDD = QComboBox(self.StudentDatabase)
+        self.SearchDD.setObjectName(u"SearchDD")
+        self.SearchDD.setGeometry(QRect(80, 20, 111, 22))
+        self.SearchDD.setFont(font1)
         self.ListData.addTab(self.StudentDatabase, "")
         self.ProgramDatabase = QWidget()
         self.ProgramDatabase.setObjectName(u"ProgramDatabase")
@@ -445,16 +445,6 @@ class Ui_MainPage(object):
         self.CNameTB.setText("")
         self.CNameTB.setPlaceholderText(QCoreApplication.translate("MainPage", u"ex. College of Computer Studies", None))
         self.AddCollegeButton.setText(QCoreApplication.translate("MainPage", u"Add College", None))
-        self.SearchText.setText(QCoreApplication.translate("MainPage", u"Search by:", None))
-        self.SearchTB.setPlaceholderText("")
-        self.SearchButton.setText(QCoreApplication.translate("MainPage", u"Search", None))
-        self.SortText.setText(QCoreApplication.translate("MainPage", u"Sort by:", None))
-        self.SortDD.setItemText(0, QCoreApplication.translate("MainPage", u"ID#", None))
-        self.SortDD.setItemText(1, QCoreApplication.translate("MainPage", u"First Name", None))
-        self.SortDD.setItemText(2, QCoreApplication.translate("MainPage", u"Last Name", None))
-        self.SortDD.setItemText(3, QCoreApplication.translate("MainPage", u"Year Level", None))
-        self.SortDD.setItemText(4, QCoreApplication.translate("MainPage", u"Program Code", None))
-
         ___qtablewidgetitem = self.StudentTable.horizontalHeaderItem(0)
         ___qtablewidgetitem.setText(QCoreApplication.translate("MainPage", u"ID#", None));
         ___qtablewidgetitem1 = self.StudentTable.horizontalHeaderItem(1)
@@ -469,6 +459,16 @@ class Ui_MainPage(object):
         ___qtablewidgetitem5.setText(QCoreApplication.translate("MainPage", u"Program Code", None));
         self.EditStudentButton.setText(QCoreApplication.translate("MainPage", u"Edit Student", None))
         self.DeleteStudentButton.setText(QCoreApplication.translate("MainPage", u"Delete Student", None))
+        self.SortDD.setItemText(0, QCoreApplication.translate("MainPage", u"ID#", None))
+        self.SortDD.setItemText(1, QCoreApplication.translate("MainPage", u"First Name", None))
+        self.SortDD.setItemText(2, QCoreApplication.translate("MainPage", u"Last Name", None))
+        self.SortDD.setItemText(3, QCoreApplication.translate("MainPage", u"Year Level", None))
+        self.SortDD.setItemText(4, QCoreApplication.translate("MainPage", u"Program Code", None))
+
+        self.SearchButton.setText(QCoreApplication.translate("MainPage", u"Search", None))
+        self.SearchText.setText(QCoreApplication.translate("MainPage", u"Search by:", None))
+        self.SearchTB.setPlaceholderText("")
+        self.SortText.setText(QCoreApplication.translate("MainPage", u"Sort by:", None))
         self.ListData.setTabText(self.ListData.indexOf(self.StudentDatabase), QCoreApplication.translate("MainPage", u"Student Database", None))
         self.EditProgramButton.setText(QCoreApplication.translate("MainPage", u"Edit Program", None))
         self.DeleteProgramButton.setText(QCoreApplication.translate("MainPage", u"Delete Program", None))
