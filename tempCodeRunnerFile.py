@@ -1,1 +1,1 @@
-sort_student_table
+        self.installEventFilter(self)
