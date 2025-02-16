@@ -1,3 +1,5 @@
+import sys
+sys.dont_write_bytecode = True
 
 from DeleteStudentP import DeleteStudentPopup
 from DeleteProgramP import DeleteProgramPopup
@@ -7,7 +9,6 @@ from PyQt6 import QtCore, QtGui, QtWidgets
 from PyQt6.QtGui import QIcon, QColor, QRegularExpressionValidator
 from PyQt6.QtWidgets import QApplication, QMainWindow, QGraphicsDropShadowEffect, QHeaderView
 from PyQt6.QtCore import QRegularExpression
-import sys
 import csv
 
 
@@ -716,7 +717,6 @@ class MainWindow(QMainWindow):
                     for col_idx, cell in enumerate(row):
                         item = QtWidgets.QTableWidgetItem(cell)
                         self.ui.CollegeTable.setItem(row_idx, col_idx, item)
-
 
     def TableFormat(self):
         self.ui.StudentTable.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Stretch)

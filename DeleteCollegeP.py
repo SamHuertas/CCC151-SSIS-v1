@@ -3,6 +3,7 @@ from PyQt6 import QtCore, QtGui, QtWidgets
 from PyQt6.QtGui import QIcon
 from PyQt6.QtWidgets import QDialog, QLabel, QPushButton
 
+
 class Ui_DeleteCollegePopup(object):
     def setupUi(self, DeleteCollegePopup):
         DeleteCollegePopup.setObjectName("DeleteCollegePopup")

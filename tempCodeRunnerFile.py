@@ -1,1 +1,1 @@
-        self.installEventFilter(self)
+e
