@@ -7,6 +7,10 @@
 	border-radius: 18px;
 }
 
+#AddStudentText, #AddProgramText, #AddCollegeText{
+	font-weight: bold;
+}
+
 #MainPage QPushButton {
 	background-color: #1e88e5;
 	border-radius: 13px;
@@ -53,6 +57,10 @@ QTableWidget{
 QTableWidget::item:selected{
 	background-color: #a2d2e8;
 	color: black;
+}
+
+QHeaderView::section {
+    font-weight: bold;
 }
 
 #Heading {

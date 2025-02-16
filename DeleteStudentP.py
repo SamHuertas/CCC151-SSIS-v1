@@ -83,6 +83,7 @@ class DeleteStudentPopup(QDialog):
     def delete_student(self):
         if self.student_id:
             self.delete_student_from_csv(self.student_id)
+            self.parent().ui.StudentTable.clearSelection()
             self.close()
             self.parent().openStudentCSV() 
 

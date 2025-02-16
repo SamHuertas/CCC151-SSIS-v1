@@ -79,17 +79,27 @@ class DeleteProgramPopup(QDialog):
         self.ui.CancelButton.clicked.connect(self.close)
         self.ui.DeleteButton.clicked.connect(self.delete_program)
 
-    def delete_program(self):
-        if self.program_code:
-            self.delete_program_from_csv(self.program_code)
-            self.close()
-            self.parent().openProgramCSV() 
-
-    def delete_program_from_csv(self, program_code):
+    def delete_program(self, program_code):
         with open("Program.csv", "r") as file:
             lines = file.readlines()
-        
+
         with open("Program.csv", "w") as file:
             for line in lines:
-                if not line.startswith(program_code + ","):
+                if not line.startswith(self.program_code + ","):
                     file.write(line)
+
+        student_lines = []
+        with open("Student.csv", "r") as file:
+                student_lines = file.readlines()
+        
+        with open("Student.csv", "w") as file:
+            for line in student_lines:
+                data = line.strip().split(",")
+                if data[5] == self.program_code:  
+                    data[5] = "NULL"  
+                file.write(",".join(data) + "\n")
+        
+        self.parent().openStudentCSV() 
+        self.parent().openProgramCSV() 
+        self.parent().ui.ProgramTable.clearSelection()
+        self.close()

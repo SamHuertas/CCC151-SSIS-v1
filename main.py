@@ -686,6 +686,8 @@ class MainWindow(QMainWindow):
                     for row_idx, row in enumerate(data[1:]):
                         for col_idx, cell in enumerate(row):
                             item = QtWidgets.QTableWidgetItem(cell)
+                            if cell.strip().upper() == "NULL":  
+                                item.setForeground(QColor("red"))
                             self.ui.StudentTable.setItem(row_idx, col_idx, item)
 
     def openProgramCSV(self):
@@ -701,6 +703,8 @@ class MainWindow(QMainWindow):
                 for row_idx, row in enumerate(data[1:]):
                     for col_idx, cell in enumerate(row):
                         item = QtWidgets.QTableWidgetItem(cell)
+                        if cell.strip().upper() == "NULL":  
+                                item.setForeground(QColor("red"))
                         self.ui.ProgramTable.setItem(row_idx, col_idx, item)
 
     def openCollegeCSV(self):
@@ -953,8 +957,8 @@ class MainWindow(QMainWindow):
 
     def openDeleteStudentPopup(self):
         selected_row = self.ui.StudentTable.currentRow()
-        if selected_row != -1:  # Ensure a row is selected
-            student_id = self.ui.StudentTable.item(selected_row, 0).text()  # Get the student ID from the first column
+        if selected_row != -1:  
+            student_id = self.ui.StudentTable.item(selected_row, 0).text()  
             self.delete_popup = DeleteStudentPopup(student_id, self)
             self.delete_popup.show()
 

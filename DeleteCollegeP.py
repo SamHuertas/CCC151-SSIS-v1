@@ -79,17 +79,42 @@ class DeleteCollegePopup(QDialog):
         self.ui.CancelButton.clicked.connect(self.close)
         self.ui.DeleteButton.clicked.connect(self.delete_college)
 
-    def delete_college(self):
-        if self.college_code:
-            self.delete_college_from_csv(self.college_code)
-            self.close()
-            self.parent().openCollegeCSV() 
+    def delete_college(self, college_code):
+        affected_programs = []
+        program_lines = []
+        with open("Program.csv", "r") as file:
+            program_lines = file.readlines()
 
-    def delete_college_from_csv(self, college_code):
+        with open("Program.csv", "w") as file:
+            for line in program_lines:
+                row = line.strip().split(",")
+                if row[2] == self.college_code: 
+                    affected_programs.append(row[0]) 
+                    row[2] = "NULL"  
+                file.write(",".join(row) + "\n")
+
+        student_lines = []
+        with open("Student.csv", "r") as file:
+            student_lines = file.readlines()
+
+        with open("Student.csv", "w") as file:
+            for line in student_lines:
+                row = line.strip().split(",")
+                if row[5] in affected_programs: 
+                    row[5] = "NULL"
+                file.write(",".join(row) + "\n")
+
+        college_lines = []
         with open("College.csv", "r") as file:
-            lines = file.readlines()
-        
+            college_lines = file.readlines()
+
         with open("College.csv", "w") as file:
-            for line in lines:
-                if not line.startswith(college_code + ","):
+            for line in college_lines:
+                if not line.startswith(self.college_code + ","):
                     file.write(line)
+        
+        self.parent().openStudentCSV()
+        self.parent().openProgramCSV()
+        self.parent().openCollegeCSV()  
+        self.parent().ui.ProgramTable.clearSelection()
+        self.close()
