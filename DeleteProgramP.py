@@ -2,12 +2,11 @@ from pathlib import Path
 from PyQt6 import QtCore, QtGui, QtWidgets
 from PyQt6.QtGui import QIcon
 from PyQt6.QtWidgets import QDialog, QLabel, QPushButton
-import sys
-sys.dont_write_bytecode = True
+
 class Ui_DeleteProgramPopup(object):
     def setupUi(self, DeleteProgramPopup):
         DeleteProgramPopup.setObjectName("DeleteProgramPopup")
-        DeleteProgramPopup.resize(371, 201)
+        DeleteProgramPopup.setFixedSize(371, 201)
         DeleteProgramPopup.setStyleSheet(Path('DeletePopup.qss').read_text())
 
         # Confirmation Label

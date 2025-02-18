@@ -13,13 +13,13 @@
 
 #MainPage QPushButton {
 	background-color: #1e88e5;
-	border-radius: 13px;
+	border-radius: 8px;
+	border-width: 2px;
 	color: white;
 }
 
 #MainPage QPushButton:disabled {
 	background-color: #a5cff5;
-	border-radius: 13px;
 	color: white;
 }
 
@@ -28,7 +28,7 @@
 }
 
 #MainPage QPushButton:pressed {
-	border: 4px solid rgb(152, 205, 229);
+	border: 2px solid rgb(152, 205, 229);
 }
 
 #MainPage QLineEdit {

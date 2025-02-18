@@ -1,6 +1,7 @@
 import sys
 sys.dont_write_bytecode = True
 
+from DuplicateStudentP import DuplicateStudentPopup
 from DeleteStudentP import DeleteStudentPopup
 from DeleteProgramP import DeleteProgramPopup
 from DeleteCollegeP import DeleteCollegePopup
@@ -20,6 +21,7 @@ class Ui_MainPage(object):
         font.setPointSize(8)
         MainPage.setFont(font)
         MainPage.setStyleSheet(Path('MainStyle.qss').read_text())
+        
 
         ##-------------------------------------START OF ADD STUDENT PANEL-------------------------------------
         self.AddStudent = QtWidgets.QFrame(parent=MainPage)
@@ -137,7 +139,7 @@ class Ui_MainPage(object):
         self.AddStudentButton.setObjectName("AddStudentButton")
         ##-------------------------------------END OF ADD STUDENT PANEL-------------------------------------
 
-         ##-------------------------------------START OF ADD PROGRAM PANEL-------------------------------------
+        ##-------------------------------------START OF ADD PROGRAM PANEL-------------------------------------
         self.AddProgram = QtWidgets.QFrame(parent=MainPage)
         self.AddProgram.setGeometry(QtCore.QRect(1050, 540, 411, 181))
         font = QtGui.QFont()
@@ -260,7 +262,7 @@ class Ui_MainPage(object):
         self.CNameTB.setText("")
         self.CNameTB.setObjectName("CNameTB")
         self.AddCollegeButton = QtWidgets.QPushButton(parent=self.AddCollege)
-        self.AddCollegeButton.setGeometry(QtCore.QRect(280, 110, 121, 31))
+        self.AddCollegeButton.setGeometry(QtCore.QRect(280, 120, 121, 31))
         font = QtGui.QFont()
         font.setFamily("Roboto")
         font.setPointSize(14)
@@ -523,6 +525,21 @@ class Ui_MainPage(object):
         self.DeleteCollegeButton.setDisabled(True)
         self.ListData.addTab(self.CollegeDatabase, "")
         ##-------------------------------END OF COLLEGE TAB-------------------------------
+
+        MainPage.setTabOrder(self.IDTB, self.FNameTB)
+        MainPage.setTabOrder(self.FNameTB, self.LNameTB)
+        MainPage.setTabOrder(self.LNameTB, self.GenderDD)
+        MainPage.setTabOrder(self.GenderDD, self.YLevelDD)
+        MainPage.setTabOrder(self.YLevelDD, self.PCodeDD)
+        MainPage.setTabOrder(self.PCodeDD, self.AddStudentButton)
+        MainPage.setTabOrder(self.AddStudentButton, self.CCodeTB)
+        MainPage.setTabOrder(self.CCodeTB, self.CNameTB)
+        MainPage.setTabOrder(self.CNameTB, self.AddCollegeButton)
+        MainPage.setTabOrder(self.AddCollegeButton, self.PCodeTB)
+        MainPage.setTabOrder(self.PCodeTB, self.PNameTB)
+        MainPage.setTabOrder(self.PNameTB, self.PCollCodeDD)
+        MainPage.setTabOrder(self.PCollCodeDD, self.AddProgramButton)
+
         ##-------------------------------------END OF DATABASE PANEL-------------------------------------
 
         self.Heading = QtWidgets.QFrame(parent=MainPage)
@@ -781,6 +798,16 @@ class MainWindow(QMainWindow):
             self.ui.AddProgramButton.setDisabled(True)
               
     def AddStudentUpdateTable(self):
+        student_id = self.ui.IDTB.text().strip()
+
+        for row in range(self.ui.StudentTable.rowCount()):
+            existing_id = self.ui.StudentTable.item(row, 0).text()
+            if(student_id == existing_id):
+                self.duplicate_popup = DuplicateStudentPopup()
+                self.duplicate_popup.setModal(True)
+                self.duplicate_popup.show()
+                return
+
         with open("Student.csv", "a", newline='') as InputStudentData:
             writer = csv.writer(InputStudentData)
             writer.writerow([
@@ -960,6 +987,7 @@ class MainWindow(QMainWindow):
         if selected_row != -1:  
             student_id = self.ui.StudentTable.item(selected_row, 0).text()  
             self.delete_popup = DeleteStudentPopup(student_id, self)
+            self.delete_popup.setModal(True)
             self.delete_popup.show()
 
     def openDeleteProgramPopup(self):
@@ -967,6 +995,7 @@ class MainWindow(QMainWindow):
         if selected_row != -1:
             program_code = self.ui.ProgramTable.item(selected_row, 0). text()
             self.delete_popup = DeleteProgramPopup(program_code, self)
+            self.delete_popup.setModal(True)
             self.delete_popup.show()
 
     def openDeleteCollegePopup(self):
@@ -974,6 +1003,7 @@ class MainWindow(QMainWindow):
         if selected_row != -1:
             program_code = self.ui.CollegeTable.item(selected_row, 0). text()
             self.delete_popup = DeleteCollegePopup(program_code, self)
+            self.delete_popup.setModal(True)
             self.delete_popup.show()
 
     def setupValidators(self):
