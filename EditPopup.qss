@@ -1,4 +1,4 @@
-#EditStudentWindow {
+#EditStudentPopup, #EditProgramPopup, #EditCollegePopup, #InputError {
 	background-color: white;
 }
 

@@ -4,13 +4,13 @@ from PyQt6.QtGui import QIcon
 from PyQt6.QtWidgets import QDialog, QLabel, QPushButton, QApplication
 
 
-class Ui_DuplicateStudentPopup(object):
-    def setupUi(self, DuplicateStudentPopup):
-        DuplicateStudentPopup.setObjectName("DuplicateStudentPopup")
-        DuplicateStudentPopup.setFixedSize(371, 201)
-        DuplicateStudentPopup.setStyleSheet(Path('DuplicatePopup.qss').read_text())
+class Ui_DuplicateCollegePopup(object):
+    def setupUi(self, DuplicateCollegePopup):
+        DuplicateCollegePopup.setObjectName("DuplicateCollegePopup")
+        DuplicateCollegePopup.setFixedSize(371, 201)
+        DuplicateCollegePopup.setStyleSheet(Path('DuplicatePopup.qss').read_text())
 
-        self.Text = QLabel(DuplicateStudentPopup)
+        self.Text = QLabel(DuplicateCollegePopup)
         self.Text.setObjectName("Text")
         self.Text.setGeometry(QtCore.QRect(50, 20, 271, 51))
         font = QtGui.QFont()
@@ -24,7 +24,7 @@ class Ui_DuplicateStudentPopup(object):
         self.Text.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
         self.Text.setWordWrap(True)
 
-        self.Text_2 = QLabel(DuplicateStudentPopup)
+        self.Text_2 = QLabel(DuplicateCollegePopup)
         self.Text_2.setObjectName("Text_2")
         self.Text_2.setGeometry(QtCore.QRect(30, 70, 311, 51))
         font1 = QtGui.QFont()
@@ -36,7 +36,7 @@ class Ui_DuplicateStudentPopup(object):
         self.Text_2.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
         self.Text_2.setWordWrap(True)
 
-        self.CloseButton = QPushButton(DuplicateStudentPopup)
+        self.CloseButton = QPushButton(DuplicateCollegePopup)
         self.CloseButton.setObjectName("CloseButton")
         self.CloseButton.setGeometry(QtCore.QRect(40, 130, 291, 41))
         font2 = QtGui.QFont()
@@ -46,22 +46,22 @@ class Ui_DuplicateStudentPopup(object):
         font2.setWeight(50)
         self.CloseButton.setFont(font2)
 
-        self.retranslateUi(DuplicateStudentPopup)
-        QtCore.QMetaObject.connectSlotsByName(DuplicateStudentPopup)
+        self.retranslateUi(DuplicateCollegePopup)
+        QtCore.QMetaObject.connectSlotsByName(DuplicateCollegePopup)
 
-    def retranslateUi(self, DuplicateStudentPopup):
+    def retranslateUi(self, DuplicateCollegePopup):
         _translate = QtCore.QCoreApplication.translate
-        DuplicateStudentPopup.setWindowTitle(_translate("DuplicateStudentPopup", "Dialog"))
-        self.Text.setText(_translate("DuplicateStudentPopup", "Student already Exists"))
-        self.Text_2.setText(_translate("DuplicateStudentPopup", "The students' ID number you are trying add is already in the database."))
-        self.CloseButton.setText(_translate("DuplicateStudentPopup", "Close"))
+        DuplicateCollegePopup.setWindowTitle(_translate("DuplicateCollegePopup", "Dialog"))
+        self.Text.setText(_translate("DuplicateCollegePopup", "College already Exists"))
+        self.Text_2.setText(_translate("DuplicateCollegePopup", "The college code you are trying add is already in the database."))
+        self.CloseButton.setText(_translate("DuplicateCollegePopup", "Close"))
 
-class DuplicateStudentPopup(QDialog):
+class DuplicateCollegePopup(QDialog):
     def __init__(self):
         super().__init__()
-        self.ui = Ui_DuplicateStudentPopup()
+        self.ui = Ui_DuplicateCollegePopup()
         self.ui.setupUi(self)
-        self.setWindowTitle('Student Exists')
+        self.setWindowTitle('College Exists')
         self.setWindowIcon(QIcon('./StudentIcon.png'))
 
         self.ui.CloseButton.clicked.connect(self.close)

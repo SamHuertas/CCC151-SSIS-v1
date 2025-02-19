@@ -2,15 +2,18 @@ from pathlib import Path
 from PyQt6 import QtCore, QtGui, QtWidgets
 from PyQt6.QtGui import QIcon
 from PyQt6.QtWidgets import QDialog, QLabel, QPushButton
+from DuplicateStudentP import DuplicateStudentPopup
+from InputError import InputErrorPopup
+import csv
 
-class Ui_EditStudentWindow(object):
-    def setupUi(self, EditStudentWindow):
-        EditStudentWindow.setObjectName("EditStudentWindow")
-        EditStudentWindow.setFixedSize(381, 302)
-        EditStudentWindow.setStyleSheet(Path('EditPopup.qss').read_text())
+class Ui_EditStudentPopup(object):
+    def setupUi(self, EditStudentPopup):
+        EditStudentPopup.setObjectName("EditStudentPopup")
+        EditStudentPopup.setFixedSize(381, 302)
+        EditStudentPopup.setStyleSheet(Path('EditPopup.qss').read_text())
 
         # Main Frame
-        self.EditStudent = QtWidgets.QFrame(parent=EditStudentWindow)
+        self.EditStudent = QtWidgets.QFrame(parent=EditStudentPopup)
         self.EditStudent.setGeometry(QtCore.QRect(10, 10, 361, 281))
         self.EditStudent.setFrameShape(QtWidgets.QFrame.Shape.StyledPanel)
         self.EditStudent.setFrameShadow(QtWidgets.QFrame.Shadow.Raised)
@@ -72,17 +75,16 @@ class Ui_EditStudentWindow(object):
         self.GenderDD = QtWidgets.QComboBox(parent=self.EditStudent)
         self.GenderDD.setGeometry(QtCore.QRect(150, 130, 81, 21))
         self.GenderDD.setFont(font_dropdown)
-        self.GenderDD.addItems(["", "Male", "Female"])
+        self.GenderDD.addItems(["Male", "Female"])
 
         self.YLevelDD = QtWidgets.QComboBox(parent=self.EditStudent)
         self.YLevelDD.setGeometry(QtCore.QRect(150, 160, 81, 21))
         self.YLevelDD.setFont(font_dropdown)
-        self.YLevelDD.addItems(["", "1", "2", "3", "4"])
+        self.YLevelDD.addItems(["1", "2", "3", "4"])
 
         self.PCodeDD = QtWidgets.QComboBox(parent=self.EditStudent)
         self.PCodeDD.setGeometry(QtCore.QRect(150, 190, 81, 21))
         self.PCodeDD.setFont(font_dropdown)
-        self.PCodeDD.addItem("")
 
         # Update Button
         font_button = QtGui.QFont("Roboto", 14)
@@ -91,28 +93,84 @@ class Ui_EditStudentWindow(object):
         self.UpdateStudentButton.setFont(font_button)
         self.UpdateStudentButton.setCursor(QtGui.QCursor(QtCore.Qt.CursorShape.PointingHandCursor))
 
-        self.retranslateUi(EditStudentWindow)
-        QtCore.QMetaObject.connectSlotsByName(EditStudentWindow)
+        self.retranslateUi(EditStudentPopup)
+        QtCore.QMetaObject.connectSlotsByName(EditStudentPopup)
 
-    def retranslateUi(self, EditStudentWindow):
+    def retranslateUi(self, EditStudentPopup):
         _translate = QtCore.QCoreApplication.translate
-        EditStudentWindow.setWindowTitle(_translate("EditStudentWindow", "Edit Student"))
+        EditStudentPopup.setWindowTitle(_translate("EditStudentPopup", "Edit Student"))
 
 # Main Window Class
-class EditStudentWindow(QDialog):
-    def __init__(self):
+class EditStudentPopup(QDialog):
+    def __init__(self, main_window, selected_row):
         super().__init__()
-        self.ui = Ui_EditStudentWindow()
+        self.ui = Ui_EditStudentPopup()
         self.ui.setupUi(self)
         self.setWindowTitle("Edit Student")
         self.setWindowIcon(QIcon('./StudentIcon.png'))
+        self.main_window = main_window  
+        self.selected_row = selected_row
+        self.ui.UpdateStudentButton.clicked.connect(self.updateStudent)
 
-        self.ui.UpdateStudentButton.clicked.connect(self.close)
+    def updateStudent(self):
+        new_id = self.ui.IDTB.text().strip()
+        new_fname = self.ui.FNameTB.text().strip().title()
+        new_lname = self.ui.LNameTB.text().strip().title()
+        new_gender = self.ui.GenderDD.currentText()
+        new_year_level = self.ui.YLevelDD.currentText()
+        new_program_code = self.ui.PCodeDD.currentText()
 
-# Main Function to Run the Application
-if __name__ == "__main__":
-    import sys
-    app = QtWidgets.QApplication(sys.argv)
-    window = EditStudentWindow()
-    window.show()
-    sys.exit(app.exec())
+        if not new_id or not new_fname or not new_lname:
+            input_error = InputErrorPopup()
+            input_error.setModal(True)
+            input_error.exec()
+            return
+
+
+        for row in range(self.main_window.ui.StudentTable.rowCount()):
+            existing_id = self.main_window.ui.StudentTable.item(row, 0).text()
+            if new_id == existing_id and row != self.selected_row:
+                self.duplicate_popup = DuplicateStudentPopup()
+                self.duplicate_popup.setModal(True)
+                self.duplicate_popup.show()
+                return
+
+        self.main_window.ui.StudentTable.item(self.selected_row, 0).setText(new_id)
+        self.main_window.ui.StudentTable.item(self.selected_row, 1).setText(new_fname)
+        self.main_window.ui.StudentTable.item(self.selected_row, 2).setText(new_lname)
+        self.main_window.ui.StudentTable.item(self.selected_row, 3).setText(new_year_level)
+        self.main_window.ui.StudentTable.item(self.selected_row, 4).setText(new_gender)
+
+        program_item = self.main_window.ui.StudentTable.item(self.selected_row, 5).setText(new_program_code)
+        program_item = QtWidgets.QTableWidgetItem()  
+        self.main_window.ui.StudentTable.setItem(self.selected_row, 5, program_item)
+
+        program_item.setText(new_program_code)
+
+        if new_program_code.strip().upper() == "NULL":
+            program_item.setForeground(QtGui.QColor("red")) 
+        else:
+            program_item.setForeground(QtGui.QColor("black"))
+
+        self.saveUpdatedStudentToCSV()
+
+        self.close()
+
+    def saveUpdatedStudentToCSV(self):
+        rows = []
+        with open("Student.csv", "r") as file:
+            reader = csv.reader(file)
+            rows = list(reader)
+
+        rows[self.selected_row + 1] = [
+            self.ui.IDTB.text(),
+            self.ui.FNameTB.text().title(),
+            self.ui.LNameTB.text().title(),
+            self.ui.YLevelDD.currentText(),
+            self.ui.GenderDD.currentText(),
+            self.ui.PCodeDD.currentText()
+        ]
+
+        with open("Student.csv", "w", newline='') as file:
+            writer = csv.writer(file)
+            writer.writerows(rows)

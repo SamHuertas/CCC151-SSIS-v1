@@ -1,7 +1,12 @@
 import sys
 sys.dont_write_bytecode = True
 
+from EditStudentP import EditStudentPopup
+from EditProgramP import EditProgramPopup
+from EditCollegeP import EditCollegePopup
 from DuplicateStudentP import DuplicateStudentPopup
+from DuplicateProgramP import DuplicateProgramPopup
+from DuplicateCollegeP import DuplicateCollegePopup
 from DeleteStudentP import DeleteStudentPopup
 from DeleteProgramP import DeleteProgramPopup
 from DeleteCollegeP import DeleteCollegePopup
@@ -678,6 +683,10 @@ class MainWindow(QMainWindow):
         self.ui.DeleteProgramButton.clicked.connect(self.openDeleteProgramPopup)
         self.ui.DeleteCollegeButton.clicked.connect(self.openDeleteCollegePopup)
 
+        self.ui.EditStudentButton.clicked.connect(self.openEditStudentPopup)
+        self.ui.EditProgramButton.clicked.connect(self.openEditProgramPopup)
+        self.ui.EditCollegeButton.clicked.connect(self.openEditCollegePopup)
+
         self.ui.ListData.currentChanged.connect(self.clearTableSelection)
         self.installEventFilter(self)
 
@@ -687,8 +696,11 @@ class MainWindow(QMainWindow):
         college_selected = len(self.ui.CollegeTable.selectedItems()) > 0
 
         self.ui.DeleteStudentButton.setDisabled(not student_selected)
+        self.ui.EditStudentButton.setDisabled(not student_selected)
         self.ui.DeleteProgramButton.setDisabled(not program_selected)
+        self.ui.EditProgramButton.setDisabled(not program_selected)
         self.ui.DeleteCollegeButton.setDisabled(not college_selected)
+        self.ui. EditCollegeButton.setDisabled(not college_selected)
 
     def openStudentCSV(self):
             with open("Student.csv", "r") as StudentData:
@@ -705,6 +717,8 @@ class MainWindow(QMainWindow):
                             item = QtWidgets.QTableWidgetItem(cell)
                             if cell.strip().upper() == "NULL":  
                                 item.setForeground(QColor("red"))
+                            else:
+                                item.setForeground(QColor("black")) 
                             self.ui.StudentTable.setItem(row_idx, col_idx, item)
 
     def openProgramCSV(self):
@@ -830,6 +844,16 @@ class MainWindow(QMainWindow):
         self.setFocus()
 
     def AddCollegeUpdateTable(self):
+        ccode = self.ui.CCodeTB.text().strip().upper()
+
+        for row in range(self.ui.CollegeTable.rowCount()):
+            existing_ccode = self.ui.CollegeTable.item(row, 0).text()
+            if(ccode == existing_ccode):
+                self.duplicate_popup = DuplicateCollegePopup()
+                self.duplicate_popup.setModal(True)
+                self.duplicate_popup.show()
+                return
+
         with open("College.csv", "a", newline='') as InputCollegeData:
             writer = csv.writer(InputCollegeData)
             writer.writerow([
@@ -844,6 +868,16 @@ class MainWindow(QMainWindow):
         self.setFocus()
 
     def AddProgramUpdateTable(self):
+        pcode = self.ui.PCodeTB.text().strip().upper()
+
+        for row in range(self.ui.ProgramTable.rowCount()):
+            existing_pcode = self.ui.ProgramTable.item(row, 0).text()
+            if(pcode == existing_pcode):
+                self.duplicate_popup = DuplicateProgramPopup()
+                self.duplicate_popup.setModal(True)
+                self.duplicate_popup.show()
+                return
+
         with open("Program.csv", "a", newline='') as InputProgramData:
             writer = csv.writer(InputProgramData)
             writer.writerow([
@@ -990,6 +1024,28 @@ class MainWindow(QMainWindow):
             self.delete_popup.setModal(True)
             self.delete_popup.show()
 
+    def openEditStudentPopup(self):
+        selected_row = self.ui.StudentTable.currentRow()
+        if selected_row != -1:
+            student_data = [self.ui.StudentTable.item(selected_row, col).text() for col in range(self.ui.StudentTable.columnCount())]
+
+            self.edit_popup = EditStudentPopup(self, selected_row)
+
+            self.edit_popup.ui.PCodeDD.clear()
+            for row in range(self.ui.ProgramTable.rowCount()):
+                program_code = self.ui.ProgramTable.item(row, 0).text()
+                self.edit_popup.ui.PCodeDD.addItem(program_code)
+
+            self.edit_popup.ui.IDTB.setText(student_data[0])
+            self.edit_popup.ui.FNameTB.setText(student_data[1])
+            self.edit_popup.ui.LNameTB.setText(student_data[2])
+            self.edit_popup.ui.YLevelDD.setCurrentText(student_data[3])
+            self.edit_popup.ui.GenderDD.setCurrentText(student_data[4])
+            self.edit_popup.ui.PCodeDD.setCurrentText(student_data[5])
+
+            self.edit_popup.setModal(True)
+            self.edit_popup.show()
+
     def openDeleteProgramPopup(self):
         selected_row = self.ui.ProgramTable.currentRow()
         if selected_row != -1:
@@ -998,6 +1054,26 @@ class MainWindow(QMainWindow):
             self.delete_popup.setModal(True)
             self.delete_popup.show()
 
+    def openEditProgramPopup(self):
+        selected_row = self.ui.ProgramTable.currentRow()
+        if selected_row != -1:
+            program_data = [self.ui.ProgramTable.item(selected_row, col).text() for col in range(self.ui.ProgramTable.columnCount())]
+
+            self.edit_popup = EditProgramPopup(self, selected_row)
+
+            self.edit_popup.ui.PCollCodeDD.clear()
+            for row in range(self.ui.CollegeTable.rowCount()):
+                college_code = self.ui.CollegeTable.item(row, 0).text()
+                self.edit_popup.ui.PCollCodeDD.addItem(college_code)
+
+
+            self.edit_popup.ui.PCodeTB.setText(program_data[0])
+            self.edit_popup.ui.PNameTB.setText(program_data[1])
+            self.edit_popup.ui.PCollCodeDD.setCurrentText(program_data[2])
+
+            self.edit_popup.setModal(True)
+            self.edit_popup.show()
+
     def openDeleteCollegePopup(self):
         selected_row = self.ui.CollegeTable.currentRow()
         if selected_row != -1:
@@ -1005,6 +1081,16 @@ class MainWindow(QMainWindow):
             self.delete_popup = DeleteCollegePopup(program_code, self)
             self.delete_popup.setModal(True)
             self.delete_popup.show()
+
+    def openEditCollegePopup(self):
+        selected_row = self.ui.CollegeTable.currentRow()
+        if selected_row !=-1:
+            college_data = [self.ui.CollegeTable.item(selected_row, col).text() for col in range(self.ui.CollegeTable.columnCount())]
+            self.edit_popup = EditCollegePopup(self, selected_row)
+            self.edit_popup.ui.CCodeTB.setText(college_data[0])
+            self.edit_popup.ui.CNameTB.setText(college_data[1])
+            self.edit_popup.setModal(True)
+            self.edit_popup.show()
 
     def setupValidators(self):
         code_validator = QRegularExpressionValidator(QRegularExpression("[A-Za-z]+"))
