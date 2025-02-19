@@ -1032,9 +1032,25 @@ class MainWindow(QMainWindow):
             self.edit_popup = EditStudentPopup(self, selected_row)
 
             self.edit_popup.ui.PCodeDD.clear()
+            programs = set()
+            current_program = student_data[5].strip().upper()  # Get selected student's program
+
+            # Always add available programs to the dropdown
             for row in range(self.ui.ProgramTable.rowCount()):
-                program_code = self.ui.ProgramTable.item(row, 0).text()
-                self.edit_popup.ui.PCodeDD.addItem(program_code)
+                program_code = self.ui.ProgramTable.item(row, 0).text().strip()
+                programs.add(program_code)
+
+            # If the student's program is NULL, add "NULL" explicitly
+            if current_program == "NULL":
+                programs.add("NULL")
+
+            self.edit_popup.ui.PCodeDD.addItems(sorted(programs))  # Populate dropdown with sorted list
+
+            # Set correct selection
+            if current_program in programs:
+                self.edit_popup.ui.PCodeDD.setCurrentText(current_program)
+            else:
+                self.edit_popup.ui.PCodeDD.setCurrentIndex(0) 
 
             self.edit_popup.ui.IDTB.setText(student_data[0])
             self.edit_popup.ui.FNameTB.setText(student_data[1])
@@ -1062,10 +1078,23 @@ class MainWindow(QMainWindow):
             self.edit_popup = EditProgramPopup(self, selected_row)
 
             self.edit_popup.ui.PCollCodeDD.clear()
-            for row in range(self.ui.CollegeTable.rowCount()):
-                college_code = self.ui.CollegeTable.item(row, 0).text()
-                self.edit_popup.ui.PCollCodeDD.addItem(college_code)
+            colleges= set()
+            current_college = program_data[2].strip().upper()
 
+            for row in range(self.ui.CollegeTable.rowCount()):
+                college_code = self.ui.CollegeTable.item(row, 0).text().strip()
+                colleges.add(college_code)
+
+            if current_college == "NULL":
+                colleges.add("NULL")
+
+            self.edit_popup.ui.PCollCodeDD.addItems(sorted(colleges)) 
+
+            # Set correct selection
+            if current_college in colleges:
+                self.edit_popup.ui.PCollCodeDD.setCurrentText(current_college)
+            else:
+                self.edit_popup.ui.PCollCodeDD.setCurrentIndex(0) 
 
             self.edit_popup.ui.PCodeTB.setText(program_data[0])
             self.edit_popup.ui.PNameTB.setText(program_data[1])
