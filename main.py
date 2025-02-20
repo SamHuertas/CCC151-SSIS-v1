@@ -963,6 +963,10 @@ class MainWindow(QMainWindow):
             self.ui.StudentTable.insertRow(row_position)
             for col, data in enumerate(row_data):
                 item = QtWidgets.QTableWidgetItem(data)
+                if data.strip().upper() == "NULL":  
+                    item.setForeground(QColor("red"))
+                else:
+                    item.setForeground(QColor("black"))
                 self.ui.StudentTable.setItem(row_position, col, item)
 
     def sort_program_table(self):
@@ -993,6 +997,10 @@ class MainWindow(QMainWindow):
             self.ui.ProgramTable.insertRow(row_position)
             for col, data in enumerate(row_data):
                 item = QtWidgets.QTableWidgetItem(data)
+                if data.strip().upper() == "NULL":  
+                    item.setForeground(QColor("red"))
+                else:
+                    item.setForeground(QColor("black"))
                 self.ui.ProgramTable.setItem(row_position, col, item)
 
     def sort_college_table(self):
