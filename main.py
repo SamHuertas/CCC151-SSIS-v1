@@ -320,6 +320,7 @@ class Ui_MainPage(object):
         font.setFamily("Roboto")
         self.StudentSearchDD.setFont(font)
         self.StudentSearchDD.setObjectName("StudentSearchDD")
+        self.StudentSearchDD.addItems(["", "ID #", "First Name", "Last Name", "Year Level", "Gender", "Program Code"])
         self.StudentSearchTB = QtWidgets.QLineEdit(parent=self.StudentDatabase)
         self.StudentSearchTB.setGeometry(QtCore.QRect(200, 20, 211, 21))
         font = QtGui.QFont()
@@ -390,6 +391,7 @@ class Ui_MainPage(object):
         font.setFamily("Roboto")
         self.ProgramSearchDD.setFont(font)
         self.ProgramSearchDD.setObjectName("ProgramSearchDD")
+        self.ProgramSearchDD.addItems(["", "Program Code", "Program Name", "College Code"])
         self.ProgramSearchTB = QtWidgets.QLineEdit(parent=self.ProgramDatabase)
         self.ProgramSearchTB.setGeometry(QtCore.QRect(200, 20, 211, 21))
         font = QtGui.QFont()
@@ -476,6 +478,7 @@ class Ui_MainPage(object):
         font.setFamily("Roboto")
         self.CollegeSearchDD.setFont(font)
         self.CollegeSearchDD.setObjectName("CollegeSearchDD")
+        self.CollegeSearchDD.addItems(["","College Code", "College Name"])
         self.CollegeSearchTB = QtWidgets.QLineEdit(parent=self.CollegeDatabase)
         self.CollegeSearchTB.setGeometry(QtCore.QRect(200, 20, 211, 21))
         font = QtGui.QFont()
@@ -687,6 +690,11 @@ class MainWindow(QMainWindow):
         self.ui.EditProgramButton.clicked.connect(self.openEditProgramPopup)
         self.ui.EditCollegeButton.clicked.connect(self.openEditCollegePopup)
 
+        self.ui.StudentSearchButton.clicked.connect(self.search_student)
+        self.ui.ProgramSearchButton.clicked.connect(self.search_program)
+        self.ui.CollegeSearchButton.clicked.connect(self.search_college)
+
+
         self.ui.ListData.currentChanged.connect(self.clearTableSelection)
         self.installEventFilter(self)
 
@@ -705,14 +713,14 @@ class MainWindow(QMainWindow):
     def openStudentCSV(self):
             with open("Student.csv", "r") as StudentData:
                 reader = csv.reader(StudentData)
-                data = list(reader)
+                self.student_data = list(reader)
 
-                if data:
-                    self.ui.StudentTable.setRowCount(len(data) - 1)
-                    self.ui.StudentTable.setColumnCount(len(data[0]))
-                    self.ui.StudentTable.setHorizontalHeaderLabels(data[0])
+                if self.student_data:
+                    self.ui.StudentTable.setRowCount(len(self.student_data) - 1)
+                    self.ui.StudentTable.setColumnCount(len(self.student_data[0]))
+                    self.ui.StudentTable.setHorizontalHeaderLabels(self.student_data[0])
 
-                    for row_idx, row in enumerate(data[1:]):
+                    for row_idx, row in enumerate(self.student_data[1:]):
                         for col_idx, cell in enumerate(row):
                             item = QtWidgets.QTableWidgetItem(cell)
                             if cell.strip().upper() == "NULL":  
@@ -724,14 +732,14 @@ class MainWindow(QMainWindow):
     def openProgramCSV(self):
         with open("Program.csv", "r") as ProgramData:
             reader = csv.reader(ProgramData)
-            data = list(reader)
+            self.program_data = list(reader)
 
-            if data:
-                self.ui.ProgramTable.setRowCount(len(data) - 1)
-                self.ui.ProgramTable.setColumnCount(len(data[0]))
-                self.ui.ProgramTable.setHorizontalHeaderLabels(data[0])
+            if self.program_data:
+                self.ui.ProgramTable.setRowCount(len(self.program_data) - 1)
+                self.ui.ProgramTable.setColumnCount(len(self.program_data[0]))
+                self.ui.ProgramTable.setHorizontalHeaderLabels(self.program_data[0])
 
-                for row_idx, row in enumerate(data[1:]):
+                for row_idx, row in enumerate(self.program_data[1:]):
                     for col_idx, cell in enumerate(row):
                         item = QtWidgets.QTableWidgetItem(cell)
                         if cell.strip().upper() == "NULL":  
@@ -741,14 +749,14 @@ class MainWindow(QMainWindow):
     def openCollegeCSV(self):
         with open("College.csv", "r") as CollegeData:
             reader = csv.reader(CollegeData)
-            data = list(reader)
+            self.college_data = list(reader)
 
-            if data:
-                self.ui.CollegeTable.setRowCount(len(data) - 1)
-                self.ui.CollegeTable.setColumnCount(len(data[0]))
-                self.ui.CollegeTable.setHorizontalHeaderLabels(data[0])
+            if self.college_data:
+                self.ui.CollegeTable.setRowCount(len(self.college_data) - 1)
+                self.ui.CollegeTable.setColumnCount(len(self.college_data[0]))
+                self.ui.CollegeTable.setHorizontalHeaderLabels(self.college_data[0])
 
-                for row_idx, row in enumerate(data[1:]):
+                for row_idx, row in enumerate(self.college_data[1:]):
                     for col_idx, cell in enumerate(row):
                         item = QtWidgets.QTableWidgetItem(cell)
                         self.ui.CollegeTable.setItem(row_idx, col_idx, item)
@@ -1120,6 +1128,113 @@ class MainWindow(QMainWindow):
             self.edit_popup.ui.CNameTB.setText(college_data[1])
             self.edit_popup.setModal(True)
             self.edit_popup.show()
+
+    def search_student(self):
+        search_by = self.ui.StudentSearchDD.currentText()
+        search_text = self.ui.StudentSearchTB.text().strip().lower()
+
+        if not search_by:
+            self.openStudentCSV()
+            return
+
+        if not search_text:
+            self.openStudentCSV()
+            return
+
+        search_options = {
+            "ID #": 0,
+            "First Name": 1,
+            "Last Name": 2,
+            "Year Level": 3,
+            "Gender": 4,
+            "Program Code": 5
+        }
+
+        column_index = search_options.get(search_by, 0)
+
+        filtered_rows = []
+        for row in self.student_data[1:]:
+            cell_value = row[column_index].strip().lower() 
+
+            if search_by == "Gender":
+                if search_text == cell_value: 
+                    filtered_rows.append(row)
+            else:
+                if search_text in cell_value: 
+                    filtered_rows.append(row)
+
+        self.ui.StudentTable.setRowCount(0)
+        for row_data in filtered_rows:
+            row_position = self.ui.StudentTable.rowCount()
+            self.ui.StudentTable.insertRow(row_position)
+            for col, data in enumerate(row_data):
+                item = QtWidgets.QTableWidgetItem(data)
+                if data.strip().upper() == "NULL":
+                    item.setForeground(QColor("red"))
+                else:
+                    item.setForeground(QColor("black"))
+                self.ui.StudentTable.setItem(row_position, col, item)
+
+    def search_program(self):
+        search_by = self.ui.ProgramSearchDD.currentText()
+        search_text = self.ui.ProgramSearchTB.text().strip().lower()
+
+        if not search_by:
+            self.openProgramCSV()
+            return
+
+        if not search_text:
+            self.openProgramCSV()
+            return
+
+        search_options = {
+            "Program Code": 0,
+            "Program Name": 1,
+            "College Code": 2
+        }
+
+        column_index = search_options.get(search_by, 0)
+
+        filtered_rows = [row for row in self.program_data[1:] if search_text in row[column_index].lower()]
+
+        self.ui.ProgramTable.setRowCount(0)
+        for row_data in filtered_rows:
+            row_position = self.ui.ProgramTable.rowCount()
+            self.ui.ProgramTable.insertRow(row_position)
+            for col, data in enumerate(row_data):
+                item = QtWidgets.QTableWidgetItem(data)
+                if data.strip().upper() == "NULL":
+                    item.setForeground(QColor("red"))
+                self.ui.ProgramTable.setItem(row_position, col, item)
+
+    def search_college(self):
+        search_by = self.ui.CollegeSearchDD.currentText()
+        search_text = self.ui.CollegeSearchTB.text().strip().lower()
+
+        if not search_by:
+            self.openCollegeCSV()
+            return
+
+        if not search_text:
+            self.openCollegeCSV()
+            return
+
+        search_options = {
+            "College Code": 0,
+            "College Name": 1
+        }
+
+        column_index = search_options.get(search_by, 0)
+
+        filtered_rows = [row for row in self.college_data[1:] if search_text in row[column_index].lower()]
+
+        self.ui.CollegeTable.setRowCount(0)
+        for row_data in filtered_rows:
+            row_position = self.ui.CollegeTable.rowCount()
+            self.ui.CollegeTable.insertRow(row_position)
+            for col, data in enumerate(row_data):
+                item = QtWidgets.QTableWidgetItem(data)
+                self.ui.CollegeTable.setItem(row_position, col, item)
 
     def setupValidators(self):
         code_validator = QRegularExpressionValidator(QRegularExpression("[A-Za-z]+"))
