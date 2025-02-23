@@ -9,14 +9,14 @@
             and search for records in a user-friendly interface.
         </p>
         <h2>Features</h2>
-        <ul>
-            <li><strong>Student Management:</strong> Add, edit, delete, and search student records.</li>
-            <li><strong>Program Management:</strong> Manage program details, including program code and college affiliation.</li>
-            <li><strong>College Management:</strong> Add and manage college information.</li>
-            <li><strong>Search and Sort:</strong> Search and sort records by various fields (e.g., student ID, program name, etc.).</li>
-            <li><strong>Data Validation:</strong> Ensures valid input for student IDs, names, and other fields.</li>
-            <li><strong>CSV Integration:</strong> Stores data in CSV files for easy access and management.</li>
-        </ul>
+<ul>
+    <li><strong>Student Management:</strong> Add, edit, delete, and search student records. View detailed student information, including ID, name, gender, year level, and program code.</li>
+    <li><strong>Program Management:</strong> Add, edit, delete, and search program records. Manage program details, including program code, program name, and affiliated college.</li>
+    <li><strong>College Management:</strong> Add, edit, delete, and search college records. Manage college details, including college code and college name.</li>
+    <li><strong>Search and Sort:</strong> Search records by various fields (e.g., student ID, program name, college code, etc.). Sort records by columns for easier navigation and organization.</li>
+    <li><strong>Data Validation:</strong> Ensures valid input for student IDs, names, program codes, and other fields. Prevents duplicate entries and invalid data formats.</li>
+    <li><strong>CSV Integration:</strong> Stores all data in CSV files (<code>Student.csv</code>, <code>Program.csv</code>, <code>College.csv</code>) for easy access and management. Automatically updates CSV files when records are added, edited, or deleted.</li>
+</ul>
         <h2>Installation</h2>
         <p>To run this project locally, follow these steps:</p>
         <ol>
