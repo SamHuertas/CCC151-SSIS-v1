@@ -1,5 +1,5 @@
 #MainPage {
-	background-color: #e0f7fa;
+	background-color: #bbdefb;
 }
 
 #AddStudent, #AddCollege, #AddProgram, #Database {
@@ -65,6 +65,7 @@ QHeaderView::section {
 
 #Heading {
 	background-color: rgb(252, 252, 252);
+    border-bottom: 3px solid #96b2c9;
 }
 
 QTabWidget::pane {
