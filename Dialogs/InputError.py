@@ -7,7 +7,7 @@ class Ui_InputError(object):
     def setupUi(self, InputError):
         InputError.setObjectName("InputError")
         InputError.setFixedSize(251, 101)
-        InputError.setStyleSheet(Path('EditPopup.qss').read_text())
+        InputError.setStyleSheet(Path('Styles/EditPopup.qss').read_text())
 
         self.Confirmation_2 = QtWidgets.QLabel(parent=InputError)
         self.Confirmation_2.setObjectName("Confirmation_2")
@@ -38,5 +38,5 @@ class InputErrorPopup(QDialog):
         self.ui = Ui_InputError()
         self.ui.setupUi(self)
         self.setWindowTitle("Input Error")
-        self.setWindowIcon(QIcon('./StudentIcon.png'))
+        self.setWindowIcon(QIcon('Assets/StudentIcon.png'))
         self.ui.ConfirmButton.clicked.connect(self.close)

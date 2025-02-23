@@ -1,1 +1,0 @@
-            self.edit_popup.ui.PCollCodeDD.setCurrentText(program_data[2])

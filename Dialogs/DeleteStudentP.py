@@ -7,7 +7,7 @@ class Ui_DeleteStudentPopup(object):
     def setupUi(self, DeleteStudentPopup):
         DeleteStudentPopup.setObjectName("DeleteStudentPopup")
         DeleteStudentPopup.setFixedSize(371, 201)
-        DeleteStudentPopup.setStyleSheet(Path('DeletePopup.qss').read_text())
+        DeleteStudentPopup.setStyleSheet(Path('Styles/DeletePopup.qss').read_text())
 
         # Confirmation Label
         self.Confirmation = QLabel(DeleteStudentPopup)
@@ -72,7 +72,7 @@ class DeleteStudentPopup(QDialog):
         self.ui = Ui_DeleteStudentPopup()
         self.ui.setupUi(self)
         self.setWindowTitle('Confirm Delete')
-        self.setWindowIcon(QIcon('./StudentIcon.png'))
+        self.setWindowIcon(QIcon('Assets/StudentIcon.png'))
 
         self.student_id = student_id
 
@@ -87,10 +87,10 @@ class DeleteStudentPopup(QDialog):
             self.parent().openStudentCSV() 
 
     def delete_student_from_csv(self, student_id):
-        with open("Student.csv", "r") as file:
+        with open("Database/Student.csv", "r") as file:
             lines = file.readlines()
         
-        with open("Student.csv", "w") as file:
+        with open("Database/Student.csv", "w") as file:
             for line in lines:
                 if not line.startswith(student_id + ","):
                     file.write(line)

@@ -1,18 +1,17 @@
 import sys
 sys.dont_write_bytecode = True
-
-from EditStudentP import EditStudentPopup
-from EditProgramP import EditProgramPopup
-from EditCollegeP import EditCollegePopup
-from DuplicateStudentP import DuplicateStudentPopup
-from DuplicateProgramP import DuplicateProgramPopup
-from DuplicateCollegeP import DuplicateCollegePopup
-from DeleteStudentP import DeleteStudentPopup
-from DeleteProgramP import DeleteProgramPopup
-from DeleteCollegeP import DeleteCollegePopup
+from Dialogs.EditStudentP import EditStudentPopup
+from Dialogs.EditProgramP import EditProgramPopup
+from Dialogs.EditCollegeP import EditCollegePopup
+from Dialogs.DuplicateStudentP import DuplicateStudentPopup
+from Dialogs.DuplicateProgramP import DuplicateProgramPopup
+from Dialogs.DuplicateCollegeP import DuplicateCollegePopup
+from Dialogs.DeleteStudentP import DeleteStudentPopup
+from Dialogs.DeleteProgramP import DeleteProgramPopup
+from Dialogs.DeleteCollegeP import DeleteCollegePopup
 from pathlib import Path
 from PyQt6 import QtCore, QtGui, QtWidgets
-from PyQt6.QtGui import QIcon, QColor, QRegularExpressionValidator
+from PyQt6.QtGui import QIcon, QColor, QRegularExpressionValidator, QFont, QFontDatabase
 from PyQt6.QtWidgets import QApplication, QMainWindow, QGraphicsDropShadowEffect, QHeaderView
 from PyQt6.QtCore import QRegularExpression
 import csv
@@ -25,8 +24,7 @@ class Ui_MainPage(object):
         font = QtGui.QFont()
         font.setPointSize(8)
         MainPage.setFont(font)
-        MainPage.setStyleSheet(Path('MainStyle.qss').read_text())
-        
+        MainPage.setStyleSheet(Path('Styles/MainStyle.qss').read_text())     
 
         ##-------------------------------------START OF ADD STUDENT PANEL-------------------------------------
         self.AddStudent = QtWidgets.QFrame(parent=MainPage)
@@ -336,7 +334,7 @@ class Ui_MainPage(object):
         font.setPointSize(12)
         self.StudentSearchButton.setFont(font)
         self.StudentSearchButton.setCursor(QtGui.QCursor(QtCore.Qt.CursorShape.PointingHandCursor))
-        self.StudentSearchButton.setStyleSheet(Path('SearchButton.qss').read_text())
+        self.StudentSearchButton.setStyleSheet(Path('Styles/SearchButton.qss').read_text())
         self.StudentSearchButton.setObjectName("StudentSearchButton")
         self.StudentSortText = QtWidgets.QLabel(parent=self.StudentDatabase)
         self.StudentSortText.setGeometry(QtCore.QRect(790, 20, 81, 21))
@@ -407,7 +405,7 @@ class Ui_MainPage(object):
         font.setPointSize(12)
         self.ProgramSearchButton.setFont(font)
         self.ProgramSearchButton.setCursor(QtGui.QCursor(QtCore.Qt.CursorShape.PointingHandCursor))
-        self.ProgramSearchButton.setStyleSheet(Path('SearchButton.qss').read_text())
+        self.ProgramSearchButton.setStyleSheet(Path('Styles/SearchButton.qss').read_text())
         self.ProgramSearchButton.setObjectName("ProgramSearchButton")
         self.ProgramSortText = QtWidgets.QLabel(parent=self.ProgramDatabase)
         self.ProgramSortText.setGeometry(QtCore.QRect(790, 20, 81, 21))
@@ -494,7 +492,7 @@ class Ui_MainPage(object):
         font.setPointSize(12)
         self.CollegeSearchButton.setFont(font)
         self.CollegeSearchButton.setCursor(QtGui.QCursor(QtCore.Qt.CursorShape.PointingHandCursor))
-        self.CollegeSearchButton.setStyleSheet(Path('SearchButton.qss').read_text())
+        self.CollegeSearchButton.setStyleSheet(Path('Styles/SearchButton.qss').read_text())
         self.CollegeSearchButton.setObjectName("CollegeSearchButton")
         self.CollegeSortText = QtWidgets.QLabel(parent=self.CollegeDatabase)
         self.CollegeSortText.setGeometry(QtCore.QRect(790, 20, 81, 21))
@@ -621,7 +619,7 @@ class MainWindow(QMainWindow):
         self.ui = Ui_MainPage()
         self.ui.setupUi(self)
         self.setWindowTitle('Simple Student Information System')
-        self.setWindowIcon(QIcon('./StudentIcon.png'))
+        self.setWindowIcon(QIcon('Assets/StudentIcon.png'))
 
         self.setupValidators()
         self.openStudentCSV()
@@ -648,7 +646,7 @@ class MainWindow(QMainWindow):
     def eventFilter(self, obj, event):
         if event.type() == QtCore.QEvent.Type.MouseButtonPress:
             if not isinstance(self.focusWidget(), QtWidgets.QLineEdit):  
-                self.setFocus()  # Remove focus from textboxes
+                self.setFocus()  
 
             if not self.ui.StudentTable.underMouse() and not self.ui.ProgramTable.underMouse() and not self.ui.CollegeTable.underMouse():
                 self.clearTableSelection()
@@ -711,7 +709,7 @@ class MainWindow(QMainWindow):
         self.ui. EditCollegeButton.setDisabled(not college_selected)
 
     def openStudentCSV(self):
-            with open("Student.csv", "r") as StudentData:
+            with open("Database/Student.csv", "r") as StudentData:
                 reader = csv.reader(StudentData)
                 self.student_data = list(reader)
 
@@ -730,7 +728,7 @@ class MainWindow(QMainWindow):
                             self.ui.StudentTable.setItem(row_idx, col_idx, item)
 
     def openProgramCSV(self):
-        with open("Program.csv", "r") as ProgramData:
+        with open("Database/Program.csv", "r") as ProgramData:
             reader = csv.reader(ProgramData)
             self.program_data = list(reader)
 
@@ -747,7 +745,7 @@ class MainWindow(QMainWindow):
                         self.ui.ProgramTable.setItem(row_idx, col_idx, item)
 
     def openCollegeCSV(self):
-        with open("College.csv", "r") as CollegeData:
+        with open("Database/College.csv", "r") as CollegeData:
             reader = csv.reader(CollegeData)
             self.college_data = list(reader)
 
@@ -830,7 +828,7 @@ class MainWindow(QMainWindow):
                 self.duplicate_popup.show()
                 return
 
-        with open("Student.csv", "a", newline='') as InputStudentData:
+        with open("Database/Student.csv", "a", newline='') as InputStudentData:
             writer = csv.writer(InputStudentData)
             writer.writerow([
                 self.ui.IDTB.text(),
@@ -862,7 +860,7 @@ class MainWindow(QMainWindow):
                 self.duplicate_popup.show()
                 return
 
-        with open("College.csv", "a", newline='') as InputCollegeData:
+        with open("Database/College.csv", "a", newline='') as InputCollegeData:
             writer = csv.writer(InputCollegeData)
             writer.writerow([
                 self.ui.CCodeTB.text().upper(),
@@ -886,7 +884,7 @@ class MainWindow(QMainWindow):
                 self.duplicate_popup.show()
                 return
 
-        with open("Program.csv", "a", newline='') as InputProgramData:
+        with open("Database/Program.csv", "a", newline='') as InputProgramData:
             writer = csv.writer(InputProgramData)
             writer.writerow([
                 self.ui.PCodeTB.text().upper(),
@@ -902,7 +900,7 @@ class MainWindow(QMainWindow):
         self.setFocus()
 
     def PopulateCollegeCode(self):
-        with open("College.csv", "r", newline='') as file:
+        with open("Database/College.csv", "r", newline='') as file:
             reader = list(csv.reader(file))
             header = reader[0] 
             rows = reader[1:] 
@@ -918,7 +916,7 @@ class MainWindow(QMainWindow):
             self.ui.PCollCodeDD.addItems(college_codes)
 
     def PopulateProgramCode(self):
-        with open("Program.csv", "r") as ProgramCode:
+        with open("Database/Program.csv", "r") as ProgramCode:
             reader = list(csv.reader(ProgramCode))
             header = reader[0] 
             rows = reader[1:] 
@@ -1049,20 +1047,17 @@ class MainWindow(QMainWindow):
 
             self.edit_popup.ui.PCodeDD.clear()
             programs = set()
-            current_program = student_data[5].strip().upper()  # Get selected student's program
+            current_program = student_data[5].strip().upper() 
 
-            # Always add available programs to the dropdown
             for row in range(self.ui.ProgramTable.rowCount()):
                 program_code = self.ui.ProgramTable.item(row, 0).text().strip()
                 programs.add(program_code)
 
-            # If the student's program is NULL, add "NULL" explicitly
             if current_program == "NULL":
                 programs.add("NULL")
 
-            self.edit_popup.ui.PCodeDD.addItems(sorted(programs))  # Populate dropdown with sorted list
+            self.edit_popup.ui.PCodeDD.addItems(sorted(programs)) 
 
-            # Set correct selection
             if current_program in programs:
                 self.edit_popup.ui.PCodeDD.setCurrentText(current_program)
             else:
@@ -1106,7 +1101,7 @@ class MainWindow(QMainWindow):
 
             self.edit_popup.ui.PCollCodeDD.addItems(sorted(colleges)) 
 
-            # Set correct selection
+
             if current_college in colleges:
                 self.edit_popup.ui.PCollCodeDD.setCurrentText(current_college)
             else:
@@ -1247,7 +1242,7 @@ class MainWindow(QMainWindow):
     def setupValidators(self):
         code_validator = QRegularExpressionValidator(QRegularExpression("[A-Za-z]+"))
         self.ui.CCodeTB.setValidator(code_validator)
-        id_validator = QRegularExpressionValidator(QRegularExpression("[0-9-]+"))
+        id_validator = QRegularExpressionValidator(QRegularExpression("^\\d{4}-\\d{4}$"))
         self.ui.IDTB.setValidator(id_validator)
         name_validator = QRegularExpressionValidator(QRegularExpression("[A-Za-z ]+"))
         self.ui.FNameTB.setValidator(name_validator)

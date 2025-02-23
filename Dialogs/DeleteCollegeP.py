@@ -7,7 +7,7 @@ class Ui_DeleteCollegePopup(object):
     def setupUi(self, DeleteCollegePopup):
         DeleteCollegePopup.setObjectName("DeleteCollegePopup")
         DeleteCollegePopup.setFixedSize(371, 201)
-        DeleteCollegePopup.setStyleSheet(Path('DeletePopup.qss').read_text())
+        DeleteCollegePopup.setStyleSheet(Path('Styles/DeletePopup.qss').read_text())
 
         # Confirmation Label
         self.Confirmation = QLabel(DeleteCollegePopup)
@@ -71,7 +71,7 @@ class DeleteCollegePopup(QDialog):
         self.ui = Ui_DeleteCollegePopup()
         self.ui.setupUi(self)
         self.setWindowTitle('Confirm Delete')
-        self.setWindowIcon(QIcon('./StudentIcon.png'))
+        self.setWindowIcon(QIcon('Assets/StudentIcon.png'))
 
         self.college_code = college_code
 
@@ -81,10 +81,10 @@ class DeleteCollegePopup(QDialog):
     def delete_college(self, college_code):
         affected_programs = []
         program_lines = []
-        with open("Program.csv", "r") as file:
+        with open("Database/Program.csv", "r") as file:
             program_lines = file.readlines()
 
-        with open("Program.csv", "w") as file:
+        with open("Database/Program.csv", "w") as file:
             for line in program_lines:
                 row = line.strip().split(",")
                 if row[2] == self.college_code: 
@@ -93,10 +93,10 @@ class DeleteCollegePopup(QDialog):
                 file.write(",".join(row) + "\n")
 
         student_lines = []
-        with open("Student.csv", "r") as file:
+        with open("Database/Student.csv", "r") as file:
             student_lines = file.readlines()
 
-        with open("Student.csv", "w") as file:
+        with open("Database/Student.csv", "w") as file:
             for line in student_lines:
                 row = line.strip().split(",")
                 if row[5] in affected_programs: 
@@ -104,10 +104,10 @@ class DeleteCollegePopup(QDialog):
                 file.write(",".join(row) + "\n")
 
         college_lines = []
-        with open("College.csv", "r") as file:
+        with open("Database/College.csv", "r") as file:
             college_lines = file.readlines()
 
-        with open("College.csv", "w") as file:
+        with open("Database/College.csv", "w") as file:
             for line in college_lines:
                 if not line.startswith(self.college_code + ","):
                     file.write(line)

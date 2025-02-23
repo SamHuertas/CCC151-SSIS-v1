@@ -7,7 +7,7 @@ class Ui_DeleteProgramPopup(object):
     def setupUi(self, DeleteProgramPopup):
         DeleteProgramPopup.setObjectName("DeleteProgramPopup")
         DeleteProgramPopup.setFixedSize(371, 201)
-        DeleteProgramPopup.setStyleSheet(Path('DeletePopup.qss').read_text())
+        DeleteProgramPopup.setStyleSheet(Path('Styles/DeletePopup.qss').read_text())
 
         # Confirmation Label
         self.Confirmation = QLabel(DeleteProgramPopup)
@@ -71,7 +71,7 @@ class DeleteProgramPopup(QDialog):
         self.ui = Ui_DeleteProgramPopup()
         self.ui.setupUi(self)
         self.setWindowTitle('Confirm Delete')
-        self.setWindowIcon(QIcon('./StudentIcon.png'))
+        self.setWindowIcon(QIcon('Assets/StudentIcon.png'))
 
         self.program_code = program_code
 
@@ -79,19 +79,19 @@ class DeleteProgramPopup(QDialog):
         self.ui.DeleteButton.clicked.connect(self.delete_program)
 
     def delete_program(self, program_code):
-        with open("Program.csv", "r") as file:
+        with open("Database/Program.csv", "r") as file:
             lines = file.readlines()
 
-        with open("Program.csv", "w") as file:
+        with open("Database/Program.csv", "w") as file:
             for line in lines:
                 if not line.startswith(self.program_code + ","):
                     file.write(line)
 
         student_lines = []
-        with open("Student.csv", "r") as file:
+        with open("Database/Student.csv", "r") as file:
                 student_lines = file.readlines()
         
-        with open("Student.csv", "w") as file:
+        with open("Database/Student.csv", "w") as file:
             for line in student_lines:
                 data = line.strip().split(",")
                 if data[5] == self.program_code:  

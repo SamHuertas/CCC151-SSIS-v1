@@ -2,15 +2,15 @@ from pathlib import Path
 from PyQt6 import QtCore, QtGui, QtWidgets
 from PyQt6.QtGui import QIcon
 from PyQt6.QtWidgets import QDialog, QLabel, QPushButton
-from DuplicateProgramP import DuplicateProgramPopup
-from InputError import InputErrorPopup
+from Dialogs.DuplicateProgramP import DuplicateProgramPopup
+from Dialogs.InputError import InputErrorPopup
 import csv
 
 class Ui_EditProgramPopup(object):
     def setupUi(self, EditProgramPopup):
         EditProgramPopup.setObjectName("EditProgramPopup")
         EditProgramPopup.setFixedSize(381, 210)
-        EditProgramPopup.setStyleSheet(Path('EditPopup.qss').read_text())
+        EditProgramPopup.setStyleSheet(Path('Styles/EditPopup.qss').read_text())
         
         self.EditProgram = QtWidgets.QFrame(EditProgramPopup)
         self.EditProgram.setGeometry(QtCore.QRect(10, 10, 361, 191))
@@ -84,7 +84,7 @@ class EditProgramPopup(QDialog):
         self.ui = Ui_EditProgramPopup()
         self.ui.setupUi(self)
         self.setWindowTitle("Edit Program")
-        self.setWindowIcon(QIcon('./StudentIcon.png'))
+        self.setWindowIcon(QIcon('Assets/StudentIcon.png'))
         self.main_window = main_window  
         self.selected_row = selected_row
         self.ui.UpdateProgramButton.clicked.connect(self.updateProgram)
@@ -127,7 +127,7 @@ class EditProgramPopup(QDialog):
 
     def saveUpdatedProgramToCSV(self):
         rows = []
-        with open("Program.csv", "r") as file:
+        with open("Database/Program.csv", "r") as file:
             reader = csv.reader(file)
             rows = list(reader)
 
@@ -137,6 +137,6 @@ class EditProgramPopup(QDialog):
             self.ui.PCollCodeDD.currentText()
         ]
 
-        with open("Program.csv", "w", newline='') as file:
+        with open("Database/Program.csv", "w", newline='') as file:
             writer = csv.writer(file)
             writer.writerows(rows)

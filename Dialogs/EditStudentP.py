@@ -2,23 +2,21 @@ from pathlib import Path
 from PyQt6 import QtCore, QtGui, QtWidgets
 from PyQt6.QtGui import QIcon
 from PyQt6.QtWidgets import QDialog, QLabel, QPushButton
-from DuplicateStudentP import DuplicateStudentPopup
-from InputError import InputErrorPopup
+from Dialogs.DuplicateStudentP import DuplicateStudentPopup
+from Dialogs.InputError import InputErrorPopup
 import csv
 
 class Ui_EditStudentPopup(object):
     def setupUi(self, EditStudentPopup):
         EditStudentPopup.setObjectName("EditStudentPopup")
         EditStudentPopup.setFixedSize(381, 302)
-        EditStudentPopup.setStyleSheet(Path('EditPopup.qss').read_text())
+        EditStudentPopup.setStyleSheet(Path('Styles/EditPopup.qss').read_text())
 
-        # Main Frame
         self.EditStudent = QtWidgets.QFrame(parent=EditStudentPopup)
         self.EditStudent.setGeometry(QtCore.QRect(10, 10, 361, 281))
         self.EditStudent.setFrameShape(QtWidgets.QFrame.Shape.StyledPanel)
         self.EditStudent.setFrameShadow(QtWidgets.QFrame.Shadow.Raised)
 
-        # Labels
         font = QtGui.QFont()
         font.setFamily("Roboto")
         font.setPointSize(12)
@@ -56,7 +54,6 @@ class Ui_EditStudentPopup(object):
         self.PCodeText.setGeometry(QtCore.QRect(30, 190, 111, 21))
         self.PCodeText.setFont(font_normal)
 
-        # Input Fields
         font_input = QtGui.QFont("Roboto", 10)
         self.IDTB = QtWidgets.QLineEdit(parent=self.EditStudent)
         self.IDTB.setGeometry(QtCore.QRect(150, 40, 191, 21))
@@ -70,7 +67,6 @@ class Ui_EditStudentPopup(object):
         self.LNameTB.setGeometry(QtCore.QRect(150, 100, 191, 21))
         self.LNameTB.setFont(font_input)
 
-        # Drop-down Fields
         font_dropdown = QtGui.QFont("Roboto")
         self.GenderDD = QtWidgets.QComboBox(parent=self.EditStudent)
         self.GenderDD.setGeometry(QtCore.QRect(150, 130, 81, 21))
@@ -86,7 +82,6 @@ class Ui_EditStudentPopup(object):
         self.PCodeDD.setGeometry(QtCore.QRect(150, 190, 81, 21))
         self.PCodeDD.setFont(font_dropdown)
 
-        # Update Button
         font_button = QtGui.QFont("Roboto", 14)
         self.UpdateStudentButton = QPushButton("Update Student", parent=self.EditStudent)
         self.UpdateStudentButton.setGeometry(QtCore.QRect(10, 230, 341, 41))
@@ -107,7 +102,7 @@ class EditStudentPopup(QDialog):
         self.ui = Ui_EditStudentPopup()
         self.ui.setupUi(self)
         self.setWindowTitle("Edit Student")
-        self.setWindowIcon(QIcon('./StudentIcon.png'))
+        self.setWindowIcon(QIcon('Assets/StudentIcon.png'))
         self.main_window = main_window  
         self.selected_row = selected_row
         self.ui.UpdateStudentButton.clicked.connect(self.updateStudent)
@@ -158,7 +153,7 @@ class EditStudentPopup(QDialog):
 
     def saveUpdatedStudentToCSV(self):
         rows = []
-        with open("Student.csv", "r") as file:
+        with open("Database/Student.csv", "r") as file:
             reader = csv.reader(file)
             rows = list(reader)
 
@@ -171,6 +166,6 @@ class EditStudentPopup(QDialog):
             self.ui.PCodeDD.currentText()
         ]
 
-        with open("Student.csv", "w", newline='') as file:
+        with open("Database/Student.csv", "w", newline='') as file:
             writer = csv.writer(file)
             writer.writerows(rows)

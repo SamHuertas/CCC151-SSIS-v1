@@ -2,15 +2,15 @@ from pathlib import Path
 from PyQt6 import QtCore, QtGui, QtWidgets
 from PyQt6.QtGui import QIcon
 from PyQt6.QtWidgets import QDialog, QLabel, QPushButton
-from DuplicateCollegeP import DuplicateCollegePopup
-from InputError import InputErrorPopup
+from Dialogs.DuplicateCollegeP import DuplicateCollegePopup
+from Dialogs.InputError import InputErrorPopup
 import csv
 
 class Ui_EditCollegePopup(object):
     def setupUi(self, EditCollegePopup):
         EditCollegePopup.setObjectName("EditCollegePopup")
-        EditCollegePopup.resize(381, 181)
-        EditCollegePopup.setStyleSheet(Path('EditPopup.qss').read_text())
+        EditCollegePopup.setFixedSize(381, 181)
+        EditCollegePopup.setStyleSheet(Path('Styles/EditPopup.qss').read_text())
         
         self.EditCollege = QtWidgets.QFrame(EditCollegePopup)
         self.EditCollege.setGeometry(QtCore.QRect(10, 10, 361, 161))
@@ -71,7 +71,7 @@ class EditCollegePopup(QDialog):
         self.ui = Ui_EditCollegePopup()
         self.ui.setupUi(self)
         self.setWindowTitle("Edit College")
-        self.setWindowIcon(QIcon('./StudentIcon.png'))
+        self.setWindowIcon(QIcon('Assets/StudentIcon.png'))
         self.main_window = main_window  
         self.selected_row = selected_row
         self.ui.UpdateCollegeButton.clicked.connect(self.updateCollege)
@@ -103,7 +103,7 @@ class EditCollegePopup(QDialog):
 
     def saveUpdatedCollegeToCSV(self):
         rows = []
-        with open("College.csv", "r") as file:
+        with open("Database/College.csv", "r") as file:
             reader = csv.reader(file)
             rows = list(reader)
 
@@ -112,6 +112,6 @@ class EditCollegePopup(QDialog):
             self.ui.CNameTB.text().title(),
         ]
 
-        with open("College.csv", "w", newline='') as file:
+        with open("Database/College.csv", "w", newline='') as file:
             writer = csv.writer(file)
             writer.writerows(rows)

@@ -43,7 +43,7 @@
 
 #MainPage QLineEdit:focus {
 	border: rgb(210, 210, 210);
-	background-color: rgb(231, 231, 231)
+	background-color: rgb(231, 231, 231);
 }
 
 QTableWidget{
@@ -81,7 +81,7 @@ QTabBar::tab {
 }
 
 QTabBar::tab:selected {
-    color: #007bff; /* Blue color for selected tab */
+    color: #007bff; 
     border-bottom: 2px solid #007bff;
 }
 
@@ -92,4 +92,36 @@ QTabBar::tab:hover {
 QTabBar::tab:!selected {
     margin-bottom: 2px;
 }
+
+QComboBox {
+	border: 1px solid #ced4da;
+	border-radius: 4px;
+	padding-left: 10px;
+	background-color: #e6e6e6;
+}
+
+QComboBox:drop-down {
+	border:0px;
+}
+
+QComboBox:down-arrow {
+	image: url("Assets/arrow-204-16.png");
+	width: 12px;
+	height: 12px;
+	margin-right: 1px;
+}
+
+QComboBox:on {
+	border: 2px solid #cccccc;
+}
+
+QComboBox QListView{
+	font-size: 13px;
+	border: 1px solid rgb(235, 235, 235);
+	padding: 1px;
+	background-color: rgb(252, 252, 252);
+	outline: 2px;
+	border-color: #cccccc;
+}
+
 
