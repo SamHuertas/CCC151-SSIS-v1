@@ -75,6 +75,7 @@ class EditCollegePopup(QDialog):
         self.main_window = main_window  
         self.selected_row = selected_row
         self.ui.UpdateCollegeButton.clicked.connect(self.updateCollege)
+        self.original_college_code = self.main_window.ui.CollegeTable.item(selected_row, 0).text()
 
     def updateCollege(self):
         new_college_code = self.ui.CCodeTB.text().strip().upper()
@@ -96,9 +97,13 @@ class EditCollegePopup(QDialog):
 
         self.main_window.ui.CollegeTable.item(self.selected_row, 0).setText(new_college_code)
         self.main_window.ui.CollegeTable.item(self.selected_row, 1).setText(new_college_name)
-
+        
 
         self.saveUpdatedCollegeToCSV()
+        if new_college_code != self.original_college_code:
+            self.updateProgramCSV(self.original_college_code, new_college_code)
+        self.main_window.openCollegeCSV()
+        self.main_window.PopulateCollegeCode()
         self.close()
 
     def saveUpdatedCollegeToCSV(self):
@@ -115,3 +120,23 @@ class EditCollegePopup(QDialog):
         with open("Database/College.csv", "w", newline='') as file:
             writer = csv.writer(file)
             writer.writerows(rows)
+
+    def updateProgramCSV(self, old_code, new_code):
+        with open("Database/Program.csv", "r") as file:
+            reader = csv.reader(file)
+            program_rows = list(reader)
+            
+        updated = False
+        for row in program_rows[1:]: 
+            if len(row) > 2 and row[2] == old_code: 
+                row[2] = new_code
+                updated = True
+        
+        if updated:
+            with open("Database/Program.csv", "w", newline='') as file:
+                writer = csv.writer(file)
+                writer.writerows(program_rows)
+
+            self.main_window.openProgramCSV()
+            self.main_window.PopulateProgramCode()
+            self.main_window.PopulateCollegeCode()

@@ -79,7 +79,6 @@ class DeleteCollegePopup(QDialog):
         self.ui.DeleteButton.clicked.connect(self.delete_college)
 
     def delete_college(self, college_code):
-        affected_programs = []
         program_lines = []
         with open("Database/Program.csv", "r") as file:
             program_lines = file.readlines()
@@ -87,20 +86,8 @@ class DeleteCollegePopup(QDialog):
         with open("Database/Program.csv", "w") as file:
             for line in program_lines:
                 row = line.strip().split(",")
-                if row[2] == self.college_code: 
-                    affected_programs.append(row[0]) 
-                    row[2] = "NULL"  
-                file.write(",".join(row) + "\n")
-
-        student_lines = []
-        with open("Database/Student.csv", "r") as file:
-            student_lines = file.readlines()
-
-        with open("Database/Student.csv", "w") as file:
-            for line in student_lines:
-                row = line.strip().split(",")
-                if row[5] in affected_programs: 
-                    row[5] = "NULL"
+                if len(row) > 2 and row[2] == self.college_code:
+                    row[2] = "NULL" 
                 file.write(",".join(row) + "\n")
 
         college_lines = []
@@ -112,8 +99,9 @@ class DeleteCollegePopup(QDialog):
                 if not line.startswith(self.college_code + ","):
                     file.write(line)
         
-        self.parent().openStudentCSV()
         self.parent().openProgramCSV()
         self.parent().openCollegeCSV()  
+        self.parent().PopulateCollegeCode()  
+        self.parent().PopulateProgramCode()
         self.parent().ui.ProgramTable.clearSelection()
         self.close()

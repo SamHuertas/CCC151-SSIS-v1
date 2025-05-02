@@ -88,6 +88,9 @@ class EditProgramPopup(QDialog):
         self.main_window = main_window  
         self.selected_row = selected_row
         self.ui.UpdateProgramButton.clicked.connect(self.updateProgram)
+        self.original_program_code = self.main_window.ui.ProgramTable.item(selected_row, 0).text()
+        self.original_program_name = self.main_window.ui.ProgramTable.item(selected_row, 1).text()
+        self.original_college_code = self.main_window.ui.ProgramTable.item(selected_row, 2).text()
 
     def updateProgram(self):
         new_code = self.ui.PCodeTB.text().strip().upper()
@@ -123,20 +126,45 @@ class EditProgramPopup(QDialog):
             pcollege_item.setForeground(QtGui.QColor("black"))
 
         self.saveUpdatedProgramToCSV()
+        if new_code != self.original_program_code:
+            self.updateStudentCSV(self.original_program_code, new_code)
+        self.main_window.openProgramCSV()
+        self.main_window.PopulateProgramCode()
         self.close()
 
     def saveUpdatedProgramToCSV(self):
-        rows = []
+        updated_code = self.ui.PCodeTB.text().strip().upper()
+        updated_name = self.ui.PNameTB.text().strip().title()
+        updated_college = self.ui.PCollCodeDD.currentText()
+        
         with open("Database/Program.csv", "r") as file:
             reader = csv.reader(file)
             rows = list(reader)
 
-        rows[self.selected_row + 1] = [
-            self.ui.PCodeTB.text().upper(),
-            self.ui.PNameTB.text().title(),
-            self.ui.PCollCodeDD.currentText()
-        ]
+        for i in range(1, len(rows)):
+            if rows[i][0] == self.original_program_code:
+                rows[i] = [updated_code, updated_name, updated_college]
+                break
 
         with open("Database/Program.csv", "w", newline='') as file:
             writer = csv.writer(file)
             writer.writerows(rows)
+
+    def updateStudentCSV(self, old_code, new_code):
+        with open("Database/Student.csv", "r") as file:
+            reader = csv.reader(file)
+            student_rows = list(reader)
+
+        updated = False
+        for row in student_rows[1:]:  
+            if len(row) > 5 and row[5] == old_code: 
+                row[5] = new_code
+                updated = True
+        
+        if updated:
+            with open("Database/Student.csv", "w", newline='') as file:
+                writer = csv.writer(file)
+                writer.writerows(student_rows)
+            
+            self.main_window.openStudentCSV()
+            self.main_window.PopulateProgramCode() 
