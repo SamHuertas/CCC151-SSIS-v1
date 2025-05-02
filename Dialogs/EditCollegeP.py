@@ -94,8 +94,8 @@ class EditCollegePopup(QDialog):
                 self.duplicate_popup.show()
                 return
 
-        self.main_window.ui.ProgramTable.item(self.selected_row, 0).setText(new_college_code)
-        self.main_window.ui.ProgramTable.item(self.selected_row, 1).setText(new_college_name)
+        self.main_window.ui.CollegeTable.item(self.selected_row, 0).setText(new_college_code)
+        self.main_window.ui.CollegeTable.item(self.selected_row, 1).setText(new_college_name)
 
 
         self.saveUpdatedCollegeToCSV()
