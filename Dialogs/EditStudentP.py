@@ -122,9 +122,14 @@ class EditStudentPopup(QDialog):
             return
 
 
-        for row in range(self.main_window.ui.StudentTable.rowCount()):
-            existing_id = self.main_window.ui.StudentTable.item(row, 0).text()
-            if new_id == existing_id and row != self.selected_row:
+        with open("Database/Student.csv", "r") as file:
+            reader = csv.reader(file)
+            rows = list(reader)
+
+        for i, row in enumerate(rows):
+            if i == 0: 
+                continue
+            if new_id == row[0] and i - 1 != self.selected_row:  
                 self.duplicate_popup = DuplicateStudentPopup()
                 self.duplicate_popup.setModal(True)
                 self.duplicate_popup.show()
